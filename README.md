@@ -4,4 +4,4 @@ Repositorio  del Grupo 6 de Proyecto de Informática I
 Información de la jerarquía del proyecto:
 - Las vistas de la aplicación son los ficheros .fxml que se encuentran en: src\main\resources\scl.pdi.billpaid
 - Las vistas son preferibles manejarse con el Scene Builder de IntelliJ, que es una librería que permite hacer las pantallas arrastrando y soltando elementos.
-- Tanto el modelo de datos como el controlador de la vista se encuentran en src\main\java\scl.pdi.billpaid, aquí programaremos las clases Grupos, Usuarios y Transacciones.
+- El modelo de datos (las clases) las programaremos en la ruta src\main\resources\scl.pdi.billpaid\modelos.
