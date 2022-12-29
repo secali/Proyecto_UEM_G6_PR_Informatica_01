@@ -1,5 +1,5 @@
 # Proyecto_UEM_G6_PR_Informatica_01
-Repositorio  del Grupo 6 de Proyecto de Informática I
+Repositorio  del Grupo 6 de Proyecto de Informática I.
 
 Información de la jerarquía del proyecto:
 - Las vistas de la aplicación son los ficheros .fxml que se encuentran en: src\main\resources\scl.pdi.billpaid
