@@ -6,6 +6,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import scl.pdi.billpaid.modelo.Transaccion;
 
@@ -23,6 +25,7 @@ public class TransaccionController {
     private TextField tf_descrip_trans;
     @FXML
     private TextField tf_cantidad;
+    private double cantidad = 0.00;
     @FXML
     private DatePicker date_fecha_transaccion;
     @FXML
@@ -33,6 +36,7 @@ public class TransaccionController {
 
     @FXML
     protected void onCrearTransaccionButtonClick() {
+
         ArrayList<String>pagadores = new ArrayList<>();
         pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
@@ -48,9 +52,21 @@ public class TransaccionController {
 
         //Usa el método de Transaccion.java para pasar a String los parametros relevantes y devolverlos en una cadena que pinta el listview
         list_transacciones.getItems().addAll(t.transaccion2List());
+
+        //suma la cantidad de cada transaccion introducida y actualiza el indicador
+        cantidad += t.getCantidad();
+        lb_cantidad.setText(Double.toString(cantidad)+" €");
+
     }
 
 
+    //SI SE PULSA SUPRIMIR, ELIMINA EL ITEM DE LA LISTA INTRODUCIDA
+    @FXML
+    protected void onEliminarTransaccionSUPR(KeyEvent event){
+        if (event.getCode() == KeyCode.DELETE){
+            list_transacciones.getItems().remove(list_transacciones.getSelectionModel().getSelectedIndex());
+        }
+    }
 
 }
 
