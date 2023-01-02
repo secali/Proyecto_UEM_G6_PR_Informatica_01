@@ -2,10 +2,7 @@ package scl.pdi.billpaid;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
@@ -22,7 +19,7 @@ public class TransaccionController {
     @FXML
     private TextField tf_nombre_transaccion;
     @FXML
-    private TextField tf_descrip_trans;
+    private TextArea tf_descrip_trans;
     @FXML
     private TextField tf_cantidad;
     private double cantidad = 0.00;
