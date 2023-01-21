@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="600.0" maxWidth="720.0" minHeight="600.0" minWidth="720.0" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.TransaccionController">
+<AnchorPane maxHeight="600.0" maxWidth="720.0" minHeight="600.0" minWidth="720.0" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.TransaccionController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9f1f8" height="539.0" layoutX="52.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="496.0" />
       <Label fx:id="lb_grupos" layoutX="64.0" layoutY="57.0" text="Nombre del grupo">
