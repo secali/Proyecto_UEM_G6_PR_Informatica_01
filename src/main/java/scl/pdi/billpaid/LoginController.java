@@ -59,6 +59,7 @@ public class LoginController implements Initializable {
                 String Password=raf.readLine().substring(9);
 
                 if(username.getText().equals(Username)& password.getText().equals(Password)){
+
                     Stage stage = (Stage) loginButton.getScene().getWindow();
                     stage.close();
 
@@ -67,7 +68,7 @@ public class LoginController implements Initializable {
                     Scene scene = new Scene(root);
 
                     stage.setScene(scene);
-                    stage.setTitle("Nombre x");
+                    stage.setTitle(Main.name());
 
                     stage.show();
                 }else{
