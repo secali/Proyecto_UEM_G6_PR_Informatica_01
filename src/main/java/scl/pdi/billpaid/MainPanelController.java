@@ -19,11 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Ramesh Godara
- */
+
 public class MainPanelController implements Initializable {
 
     @FXML
@@ -91,7 +87,7 @@ public class MainPanelController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Nombre x");
+        stage.setTitle(Main.name());
 
         stage.show();
     }

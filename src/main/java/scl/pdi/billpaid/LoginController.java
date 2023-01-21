@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
                     Scene scene = new Scene(root);
 
                     stage.setScene(scene);
-                    stage.setTitle("Registro de usuario");
+                    stage.setTitle("Nombre x");
 
                     stage.show();
                 }else{
@@ -119,7 +119,7 @@ public class LoginController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("User Login");
+        stage.setTitle(Main.name());
 
         stage.show();
     }

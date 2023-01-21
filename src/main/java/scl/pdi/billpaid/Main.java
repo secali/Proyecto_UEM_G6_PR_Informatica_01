@@ -16,11 +16,14 @@ public class Main extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Inicio de Sesión");
+        stage.setTitle(name());
 
         stage.show();
     }
-
+    public static String name(){
+        String name = "Nombre X";
+        return name;
+    }
     public static void main(String[] args) {
         launch(args);
 

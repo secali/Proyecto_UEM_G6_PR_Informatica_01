@@ -1,7 +1,7 @@
 package scl.pdi.billpaid;
 
 import scl.pdi.billpaid.helper.AlertHelper;
-
+import scl.pdi.billpaid.Main;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +20,9 @@ import javafx.stage.Window;
 
 
 public class RegisterController implements Initializable {
+
+
+
 
 
 
@@ -129,7 +132,7 @@ public class RegisterController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Registro de usuarios");
+        stage.setTitle(Main.name());
 
         stage.show();
     }
