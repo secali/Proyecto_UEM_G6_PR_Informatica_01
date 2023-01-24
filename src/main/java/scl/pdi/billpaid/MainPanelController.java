@@ -105,9 +105,19 @@ public class MainPanelController implements Initializable {
     }
 
     @FXML
-    private void loadPage03View(ActionEvent e) {
-        loadFXML("Page03View");
-        changeButtonBackground(e);
+    private void loadDemoGroup(ActionEvent e) throws IOException {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource("transaccion-view.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.setTitle(Main.name());
+
+        stage.show();
+
     }
 
     @FXML
