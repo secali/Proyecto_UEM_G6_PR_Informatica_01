@@ -41,14 +41,14 @@ public class TransaccionController {
         ArrayList<String>pagadores = new ArrayList<>();
         pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
-        deudoSres.add(tf_deber_por.getText());
+        //deudoSres.add(tf_deber_por.getText());
         //falta ajustar esto del string.....
-        String[] deudores_str = split(tf_deber_por.getText());
+        //String[] deudores_str = split(tf_deber_por.getText());
 
-        for (String subString : deudores_str) {
+        //for (String subString : deudores_str) {
 
-            deudores.add(new User(subString, "", "usuario"));
-        }
+          //  deudores.add(new User(subString, "", "usuario"));
+        //}
 
          //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
