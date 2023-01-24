@@ -1,8 +1,12 @@
 package scl.pdi.billpaid.modelo;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class User {
 
     private String username;
+
     private String password;
     private String role;
 
@@ -67,4 +71,7 @@ public class User {
                 ", role='" + role + '\'' +
                 '}';
     }
+
+
 }
+

@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import scl.pdi.billpaid.modelo.Transaccion;
+import scl.pdi.billpaid.modelo.User;
 
 import java.time.Clock;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class TransaccionController {
     private Transaccion transaccion;
     private ArrayList<Transaccion> transacciones_almacenadas = new ArrayList<>();
+    private ArrayList<User>deudores = new ArrayList<>();
     @FXML
     private Label lb_cantidad;
     @FXML
@@ -39,8 +41,16 @@ public class TransaccionController {
         ArrayList<String>pagadores = new ArrayList<>();
         pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
-        ArrayList<String>deudores = new ArrayList<>();
-        deudores.add(tf_deber_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
+        deudoSres.add(tf_deber_por.getText());
+        //falta ajustar esto del string.....
+        String[] deudores_str = split(tf_deber_por.getText());
+
+        for (String subString : deudores_str) {
+
+            deudores.add(new User(subString, "", "usuario"));
+        }
+
+         //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
 
 
@@ -56,6 +66,10 @@ public class TransaccionController {
         //suma la cantidad de cada transaccion introducida y actualiza el indicador
         cantidad += transaccion.getCantidad();
         lb_cantidad.setText(Double.toString(cantidad)+" €");
+
+
+
+
 
     }
 
