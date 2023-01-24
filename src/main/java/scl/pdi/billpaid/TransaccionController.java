@@ -64,18 +64,34 @@ public class TransaccionController {
     @FXML
     protected void onEliminarTransaccionSUPR(KeyEvent event) {
 
-        if (event.getCode() == KeyCode.DELETE) {
-            int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
-           list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
-           //Actualiza la cantidad mostrada y elimina el objeto almacenado
-           cantidad -= transacciones_almacenadas.get(idx_eliminar).getCantidad();
-            lb_cantidad.setText(Double.toString(cantidad)+" €");
+            if (event.getCode() == KeyCode.DELETE) {
+                int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
+                if (idx_eliminar > 0) {
+                    list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
+
+                    //Actualiza la cantidad mostrada y elimina el objeto almacenado
+                    cantidad -= transacciones_almacenadas.get(idx_eliminar).getCantidad();
+                    lb_cantidad.setText(Double.toString(cantidad) + " €");
+                    transacciones_almacenadas.remove(idx_eliminar);
+                }
+            }
+
+    }
+
+    @FXML
+    protected void onEliminarTransaccionClick() {
+        int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
+
+        if (idx_eliminar > 0) {
+            list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
+
+            //Actualiza la cantidad mostrada y elimina el objeto almacenado
+            cantidad -= transacciones_almacenadas.get(idx_eliminar).getCantidad();
+            lb_cantidad.setText(Double.toString(cantidad) + " €");
             transacciones_almacenadas.remove(idx_eliminar);
         }
     }
+    }
 
-
-
-}
 
