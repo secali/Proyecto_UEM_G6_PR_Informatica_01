@@ -21,39 +21,32 @@ public class Grupo {
     public void setID_Persona(int ID_Persona) {
         this.ID_Persona = ID_Persona;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
-
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-
-
     public void modificarGrupo(){
-
     }
     public void eliminarGrupo(){
-
     }
-
     public void importarGrupo(){
-
     }
-
     public void exportarGrupo(){
-
     }
-    public void mostrarGrupo(){
+    public String toString() {
+        return "Grupo {" +
+                "id_grupo ='" + ID_Persona + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", fecha='" + fechaCreacion + '\'' +
+                '}';
     }
 
 

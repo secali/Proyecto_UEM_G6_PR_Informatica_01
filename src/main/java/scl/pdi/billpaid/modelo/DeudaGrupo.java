@@ -11,6 +11,7 @@ public class DeudaGrupo{
         this.ID_Persona = ID_Persona;
     }
 
+    //mostrarDeudaGrupo()
     public String toString() {
         return "Deuda{" +
                 " ID del grupo ='" + ID_Grupo + '\'' +
