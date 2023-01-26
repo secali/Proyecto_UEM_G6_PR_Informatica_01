@@ -10,7 +10,6 @@ public class DeudaGrupo{
         this.saldoCalculado = saldoCalculado;
         this.ID_Persona = ID_Persona;
     }
-
     //mostrarDeudaGrupo()
     public String toString() {
         return "Deuda{" +
@@ -19,12 +18,4 @@ public class DeudaGrupo{
                 ", ID de la Persona ='" + ID_Persona + '\'' +
                 '}';
     }
-
-
-
-
-
-
-
-
 }
