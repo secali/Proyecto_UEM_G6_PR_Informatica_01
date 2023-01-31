@@ -10,20 +10,7 @@
     <left>
         <VBox prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="addPurchase" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="189.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" textAlignment="JUSTIFY" visible="false">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button fx:id="purchaseDetail" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="185.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" textAlignment="JUSTIFY" visible="false">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button fx:id="page01" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="172.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Perfil" textAlignment="JUSTIFY">
+                <Button fx:id="page01" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="172.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Ver Grupos" textAlignment="JUSTIFY" underline="true">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -31,23 +18,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Crear Grupos" textAlignment="JUSTIFY">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            <Button fx:id="page03" layoutX="10.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Ver Grupos" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-                <Button fx:id="page03" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY">
+                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadFXML" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Pagina Principal" textAlignment="JUSTIFY" underline="true">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -62,6 +33,10 @@
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="1360.0" style="-fx-background-color: #2b2a26;" BorderPane.alignment="CENTER">
             <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CREAR GRUPOS" wrappingWidth="737.13671875">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Text>
                 <Button fx:id="logout" mnemonicParsing="false" onAction="#close" prefHeight="18.0" prefWidth="74.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Log Out" textAlignment="JUSTIFY">
                     <font>
                         <Font name="System Bold" size="12.0" />
@@ -84,9 +59,16 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox prefHeight="108.0" prefWidth="1190.0" />
-                <HBox prefHeight="244.0" prefWidth="1190.0" />
-                <HBox prefHeight="254.0" prefWidth="1190.0" />
+            <ButtonBar fx:id="chartPurchase">
+               <buttons>
+                      <HBox prefHeight="244.0" prefWidth="1190.0">
+                     <children>
+                            <HBox fx:id="chartReceipt" prefHeight="260.0" prefWidth="1195.0" />
+                     </children>
+                  </HBox>
+               </buttons>
+            </ButtonBar>
+                <HBox prefHeight="287.0" prefWidth="1179.0" />
             </children>
         </VBox>
     </center>
