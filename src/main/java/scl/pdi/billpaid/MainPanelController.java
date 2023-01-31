@@ -93,15 +93,33 @@ public class MainPanelController implements Initializable {
     }
 
     @FXML
-    private void loadPage01View(ActionEvent e) {
-        loadFXML("Page01View");
-        changeButtonBackground(e);
+    private void loadPage01View(ActionEvent e) throws IOException {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource("CrearGrupos.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.setTitle(Main.name());
+
+        stage.show();
     }
 
     @FXML
-    private void loadPage02View(ActionEvent e) {
-        loadFXML("Page02View");
-        changeButtonBackground(e);
+    private void loadPage02View(ActionEvent e) throws IOException {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource("VerGrupos.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.setTitle(Main.name());
+
+        stage.show();
     }
 
     @FXML
