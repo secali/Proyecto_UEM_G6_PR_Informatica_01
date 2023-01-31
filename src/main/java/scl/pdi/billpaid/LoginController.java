@@ -51,7 +51,6 @@ public class LoginController implements Initializable {
     private void login() throws Exception {
 
         if (this.isValidated()) {
-
             try {
                 RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
                 String line = raf.readLine();

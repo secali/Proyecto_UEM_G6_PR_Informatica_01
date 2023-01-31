@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import scl.pdi.billpaid.modelo.User;
 
 
 public class RegisterController implements Initializable {
@@ -60,11 +61,19 @@ public class RegisterController implements Initializable {
             try {
                 RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
 
+
                 raf.writeBytes("Username:"+username.getText()+ "\r\n");
                 raf.writeBytes("Password:"+password.getText()+ "\r\n");
+
+                //User nuevoUser = new User(username.getText().toString(), password.getText().toString(), "user");
+                //System.out.println(nuevoUser);
+
+
                 clearForm();
                 AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                         "Usuario registrado.");
+
+
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,6 +144,7 @@ public class RegisterController implements Initializable {
         stage.setTitle(Main.name());
 
         stage.show();
+
     }
 
 }

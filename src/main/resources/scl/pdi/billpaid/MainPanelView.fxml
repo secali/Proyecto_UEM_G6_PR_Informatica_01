@@ -23,14 +23,6 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="home" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="173.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Home" textAlignment="JUSTIFY">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
                 <Button fx:id="page01" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="172.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Perfil" textAlignment="JUSTIFY">
                     <font>
                         <Font name="System Bold" size="17.0" />
@@ -39,7 +31,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupos" textAlignment="JUSTIFY">
+                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Crear Grupos" textAlignment="JUSTIFY">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
