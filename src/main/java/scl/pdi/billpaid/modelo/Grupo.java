@@ -10,6 +10,8 @@ public class Grupo {
     private String nombre;
     private Date fechaCreacion;
 
+
+
     public Grupo (int ID_Persona, String nombre, Date fechaCreacion){
         this.ID_Persona = ID_Persona;
         this.nombre = nombre;

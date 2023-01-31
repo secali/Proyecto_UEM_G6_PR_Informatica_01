@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    public static int aux;
 
     public void start(Stage stage) throws Exception {
 
