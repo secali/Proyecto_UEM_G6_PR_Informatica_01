@@ -12,7 +12,7 @@ import scl.pdi.billpaid.modelo.User;
 import java.time.Clock;
 import java.util.ArrayList;
 
-public class TransaccionController {
+public class TransaccionController extends MainPanelController{
     private Transaccion transaccion;
     private ArrayList<Transaccion> transacciones_almacenadas = new ArrayList<>();
     private ArrayList<User>deudores = new ArrayList<>();

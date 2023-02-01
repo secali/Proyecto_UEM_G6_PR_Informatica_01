@@ -20,7 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
-public class MainPanelController implements Initializable {
+public class MainPanelController   implements Initializable {
 
     @FXML
     private BorderPane borderPane;
@@ -127,7 +127,7 @@ public class MainPanelController implements Initializable {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
 
-        Parent root = FXMLLoader.load(getClass().getResource("transaccion-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("TransaccionView.fxml"));
 
         Scene scene = new Scene(root);
 
