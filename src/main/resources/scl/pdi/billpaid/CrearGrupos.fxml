@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -26,6 +27,14 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+            <Button fx:id="Creacion" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="30.0" prefWidth="172.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Crear Grupo" textAlignment="JUSTIFY" textFill="#ff0d00" underline="true">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
 
             </children>
         </VBox>
@@ -62,9 +71,12 @@
 
                 <HBox prefHeight="287.0" prefWidth="1179.0">
                <children>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" />
                </children></HBox>
             </children>
+         <effect>
+            <Glow />
+         </effect>
         </VBox>
     </center>
 </BorderPane>

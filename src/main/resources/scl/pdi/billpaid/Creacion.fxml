@@ -11,19 +11,23 @@
     <left>
         <VBox prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="addPurchase" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="189.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" textAlignment="JUSTIFY" visible="false">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button fx:id="purchaseDetail" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="185.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" textAlignment="JUSTIFY" visible="false">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
+            <VBox prefHeight="121.0" prefWidth="104.0">
+               <children>
+                      <Button fx:id="purchaseDetail" defaultButton="true" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="185.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="PAGINA PRINCPIAL" textAlignment="CENTER" textFill="RED" visible="false">
+                          <font>
+                              <Font name="System Bold" size="24.0" />
+                          </font>
+                      </Button>
+                      <Button fx:id="addPurchase" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="189.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="PAGINA PRINCIPAL" textAlignment="JUSTIFY" visible="false">
+                          <VBox.margin>
+                              <Insets top="10.0" />
+                          </VBox.margin>
+                          <font>
+                              <Font name="System Bold" size="12.0" />
+                          </font>
+                      </Button>
+               </children>
+            </VBox>
 
             </children>
         </VBox>
@@ -56,7 +60,7 @@
                 <HBox prefHeight="108.0" prefWidth="1190.0" />
                 <HBox id="PanelPerfil" prefHeight="244.0" prefWidth="1190.0" />
                 <HBox prefHeight="254.0" prefWidth="1190.0" />
-                <AnchorPane maxHeight="600.0" maxWidth="720.0" minHeight="600.0" minWidth="720.0" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+                <AnchorPane maxHeight="887.0" maxWidth="1128.0" minHeight="600.0" minWidth="720.0" prefHeight="887.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="539.0" layoutX="5.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="868.0" />
                         <Label fx:id="lb_grupos" layoutX="64.0" layoutY="57.0" text="Grupos">

@@ -29,8 +29,6 @@ import scl.pdi.billpaid.helper.AlertHelper;
 
 public class LoginController implements Initializable {
 
-
-
     @FXML
     private TextField username;
 

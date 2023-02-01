@@ -1,22 +1,21 @@
 package scl.pdi.billpaid.modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 public class Grupo {
 
-    private int ID_Persona;
-    private String nombre;
-    private Date fechaCreacion;
+    private String ID_Grupo;
+    private String Descripcion;
+    private double CantidadIntegrantes;
 
       private ArrayList <Transaccion> transacciones;
 
-    public Grupo (int ID_Persona, String nombre, Date fechaCreacion){
-        this.ID_Persona = ID_Persona;
-        this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
+
+      //Constructor para Nombre de grupo, descripcion del grupo, cantidad de integrantes.
+    public Grupo (String ID_Grupo, String Descripcion, double CantidadIntegrantes){
+        this.ID_Grupo = ID_Grupo;
+        this.Descripcion = Descripcion;
+        this.CantidadIntegrantes = CantidadIntegrantes;
 
         transacciones = new ArrayList<>();
 
@@ -32,37 +31,34 @@ public class Grupo {
     }
 
 
-    public int getID_Persona() {
-        return ID_Persona;
+    public String getID_Persona() {
+        return ID_Grupo;
     }
-    public void setID_Persona(int ID_Persona) {
-        this.ID_Persona = ID_Persona;
+    public void setID_Persona(String ID_Persona) {
+        this.ID_Grupo = ID_Persona;
     }
     public String getNombre() {
-        return nombre;
+        return Descripcion;
     }
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.Descripcion = nombre;
     }
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public double getCantidadIntegrantes() {
+        return CantidadIntegrantes;
     }
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setCantidadIntegrantes(int fechaCreacion) {
+        this.CantidadIntegrantes = fechaCreacion;
     }
-    public void modificarGrupo(){
+
+
+    public String listarGrupo() {
+        return ID_Grupo + " --------- Nombre del grupo" + Descripcion + " --------- " + CantidadIntegrantes;
     }
-    public void eliminarGrupo(){
-    }
-    public void importarGrupo(){
-    }
-    public void exportarGrupo(){
-    }
-    public String toString() {
+    public String toString(){
         return "Grupo {" +
-                "id_grupo ='" + ID_Persona + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", fecha='" + fechaCreacion + '\'' +
+                "id_grupo ='" + ID_Grupo + '\'' +
+                ", nombre='" + Descripcion + '\'' +
+                ", Cantidad de Integrantes='" + CantidadIntegrantes + '\'' +
                 '}';
     }
 

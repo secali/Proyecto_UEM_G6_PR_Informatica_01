@@ -23,10 +23,6 @@ import scl.pdi.billpaid.modelo.User;
 public class RegisterController implements Initializable {
 
 
-
-
-
-
     @FXML
     private TextField username;
 
