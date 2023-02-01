@@ -93,6 +93,22 @@ public class MainPanelController   implements Initializable {
     }
 
     @FXML
+    private void loadHomeView(ActionEvent e) throws IOException {
+
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource("MainPanelView.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.setTitle(Main.name());
+
+        stage.show();
+    }
+
+    @FXML
     private void loadPage01View(ActionEvent e) throws IOException {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
@@ -136,11 +152,5 @@ public class MainPanelController   implements Initializable {
 
         stage.show();
 
-    }
-
-    @FXML
-    private void loadHomeView(ActionEvent e) {
-        loadFXML("HomeView");
-        changeButtonBackground(e);
     }
 }
