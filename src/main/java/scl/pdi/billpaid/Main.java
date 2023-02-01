@@ -5,14 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import scl.pdi.billpaid.modelo.Grupo;
 
 
 public class Main extends Application {
 
     public void start(Stage stage) throws Exception {
 
-        //lista de usuarios
-        //lista de grupos
 
         Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
 
@@ -20,6 +19,10 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.setTitle(name());
+
+
+        //Creando variables de sesión.
+
 
         stage.show();
     }
