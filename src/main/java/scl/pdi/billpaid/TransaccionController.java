@@ -12,7 +12,7 @@ import scl.pdi.billpaid.modelo.User;
 import java.time.Clock;
 import java.util.ArrayList;
 
-public class TransaccionController {
+public class TransaccionController extends MainPanelController{
     private Transaccion transaccion;
     private ArrayList<Transaccion> transacciones_almacenadas = new ArrayList<>();
     private ArrayList<User>deudores = new ArrayList<>();
@@ -57,11 +57,12 @@ public class TransaccionController {
         transaccion = new Transaccion("1",tf_nombre_transaccion.getText(), tf_descrip_trans.getText(), Double.parseDouble(tf_cantidad.getText()),
                 "normal",pagadores,deudores, date_fecha_transaccion.getValue().toString());
 
-        System.out.println(transaccion);
 
         //Usa el método de Transaccion.java para pasar a String los parametros relevantes y devolverlos en una cadena que pinta el listview
         list_transacciones.getItems().addAll(transaccion.transaccion2List());
         transacciones_almacenadas.add(transaccion);
+
+        System.out.println("Se ha añadido 1 transaccion");
 
         //suma la cantidad de cada transaccion introducida y actualiza el indicador
         cantidad += transaccion.getCantidad();
@@ -81,7 +82,7 @@ public class TransaccionController {
 
             if (event.getCode() == KeyCode.DELETE) {
                 int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
-                if (idx_eliminar > 0) {
+                if (idx_eliminar >= 0) {
                     list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
                     //Actualiza la cantidad mostrada y elimina el objeto almacenado
@@ -97,7 +98,10 @@ public class TransaccionController {
     protected void onEliminarTransaccionClick() {
         int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
 
-        if (idx_eliminar > 0) {
+        System.out.println(idx_eliminar);
+
+
+        if (idx_eliminar >= 0) {
             list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
             //Actualiza la cantidad mostrada y elimina el objeto almacenado
