@@ -11,21 +11,26 @@ public class Grupo {
     private String nombre;
     private Date fechaCreacion;
 
-    private ArrayList Transacciones;
+      private ArrayList <Transaccion> transacciones;
 
     public Grupo (int ID_Persona, String nombre, Date fechaCreacion){
         this.ID_Persona = ID_Persona;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
+
+        transacciones = new ArrayList<>();
+
     }
 
-    public ArrayList getTransacciones() {
-        return Transacciones;
+
+    public ArrayList<Transaccion> getTransacciones() {
+        return transacciones;
     }
 
-    public void setTransacciones(ArrayList transacciones) {
-        Transacciones = transacciones;
+    public void setTransacciones(ArrayList<Transaccion> transacciones) {
+        this.transacciones = transacciones;
     }
+
 
     public int getID_Persona() {
         return ID_Persona;

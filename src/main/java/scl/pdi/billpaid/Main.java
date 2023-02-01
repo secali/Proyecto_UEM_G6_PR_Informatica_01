@@ -21,9 +21,6 @@ public class Main extends Application {
         stage.setTitle(name());
 
 
-        //Creando variables de sesión.
-
-
         stage.show();
     }
     public static String name(){
