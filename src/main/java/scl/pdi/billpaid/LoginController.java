@@ -57,6 +57,8 @@ public class LoginController implements Initializable {
                 String Username=line.substring(9);
                 String Password=raf.readLine().substring(9);
 
+
+
                 if(username.getText().equals(Username)& password.getText().equals(Password)){
 
                     Stage stage = (Stage) loginButton.getScene().getWindow();
