@@ -39,7 +39,7 @@
         </VBox>
     </left>
     <top>
-        <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="1360.0" style="-fx-background-color: #2b2a26;" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="1403.0" style="-fx-background-color: #2b2a26;" BorderPane.alignment="CENTER">
             <children>
             <Text fill="WHITE" fontSmoothingType="LCD" strokeDashOffset="100.0" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="100.0" text="MENU PRINCIPAL" wrappingWidth="737.154296875">
                <font>
