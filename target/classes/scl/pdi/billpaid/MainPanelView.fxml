@@ -8,35 +8,7 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1350.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.MainPanelController">
     <left>
-        <VBox prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Crear Grupos" textAlignment="JUSTIFY" underline="true">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            <Button fx:id="page03" layoutX="10.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Ver Grupos" textAlignment="JUSTIFY" underline="true">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-                <Button fx:id="bt_demo" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY" underline="true">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-
-            </children>
-        </VBox>
+        <VBox prefHeight="601.0" prefWidth="36.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER" />
     </left>
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="1403.0" style="-fx-background-color: #2b2a26;" BorderPane.alignment="CENTER">
@@ -69,7 +41,29 @@
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox prefHeight="108.0" prefWidth="1190.0" />
-                <HBox prefHeight="244.0" prefWidth="1190.0" />
+                <HBox prefHeight="244.0" prefWidth="1190.0">
+               <children>
+                  <AnchorPane prefHeight="242.0" prefWidth="988.0">
+                     <children>
+                            <Button fx:id="page02" layoutX="503.0" layoutY="-5.0" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Gestionar Grupos" textAlignment="JUSTIFY" underline="true">
+                                <font>
+                                    <Font name="System Bold" size="17.0" />
+                                </font>
+                                <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                </cursor>
+                            </Button>
+                            <Button fx:id="bt_demo" layoutX="503.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY" underline="true">
+                                <font>
+                                    <Font name="System Bold" size="17.0" />
+                                </font>
+                                <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                </cursor>
+                            </Button>
+                     </children>
+                  </AnchorPane>
+               </children></HBox>
                 <HBox prefHeight="254.0" prefWidth="1190.0" />
             </children>
         </VBox>
