@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1350.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.MainPanelController">
     <left>
         <VBox prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
@@ -72,7 +73,32 @@
                 <HBox prefHeight="287.0" prefWidth="1179.0">
                <children>
                   <TextFlow prefHeight="200.0" prefWidth="200.0" />
-               </children></HBox>
+               </children>
+                    <AnchorPane maxHeight="887.0" maxWidth="1128.0" minHeight="600.0" minWidth="720.0" prefHeight="887.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+                        <children>
+                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="539.0" layoutX="5.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="868.0" />
+                            <Label fx:id="lb_grupos" layoutX="64.0" layoutY="57.0" text="Grupos">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <ListView fx:id="list_transacciones" layoutX="6.0" layoutY="113.0"  prefHeight="460.0" prefWidth="866.0" />
+                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8e8e8" height="548.0" layoutX="871.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="232.0" />
+                            <Label fx:id="lb_transaccion" layoutX="934.0" layoutY="91.0" text="Crear Grupo">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="tf_nombre_transaccion" layoutX="887.0" layoutY="141.0" prefHeight="26.0" prefWidth="204.0" promptText="Nombre" />
+                            <TextField fx:id="tf_cantidad" layoutX="889.0" layoutY="228.0" prefHeight="26.0" prefWidth="203.0" promptText="Cantidad de Integrantes" />
+                            <Button layoutX="934.0" layoutY="532.0" mnemonicParsing="false"  text="Crear transacción" />
+                            <TextArea fx:id="tf_descrip_trans" layoutX="888.0" layoutY="166.0" prefHeight="62.0" prefWidth="203.0" promptText="Descripción" />
+                            <Button fx:id="bt_eliminar" layoutX="805.0" layoutY="88.0" mnemonicParsing="false"  text="Eliminar" />
+                        </children>
+                    </AnchorPane>
+
+
+                </HBox>
             </children>
          <effect>
             <Glow />

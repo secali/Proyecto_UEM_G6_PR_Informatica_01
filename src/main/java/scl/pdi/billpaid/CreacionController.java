@@ -1,10 +1,12 @@
-package scl.pdi.billpaid.modelo;
+package scl.pdi.billpaid;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import scl.pdi.billpaid.MainPanelController;
+import scl.pdi.billpaid.modelo.Grupo;
+
 import java.util.ArrayList;
 
 public class CreacionController extends MainPanelController {
