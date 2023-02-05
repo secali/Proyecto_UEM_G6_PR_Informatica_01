@@ -1,14 +1,14 @@
 package scl.pdi.billpaid;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.URL;
-
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
+
 
 
 import javafx.fxml.FXML;
@@ -40,47 +40,44 @@ public class LoginController implements Initializable {
 
     Window window;
 
+    Map<String, String> users = new HashMap<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        try {
+            Scanner scanner = new Scanner(new File("logins.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                users.put(parts[0], parts[1]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void login() throws Exception {
-
         if (this.isValidated()) {
-            try {
-                RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
-                String line = raf.readLine();
-                String Username=line.substring(9);
-                String Password=raf.readLine().substring(9);
+            String enteredUsername = username.getText();
+            String enteredPassword = password.getText();
 
 
+            if (users.containsKey(enteredUsername) && users.get(enteredUsername).equals(enteredPassword)) {
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.close();
 
-                if(username.getText().equals(Username)& password.getText().equals(Password)){
+                Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
 
-                    Stage stage = (Stage) loginButton.getScene().getWindow();
-                    stage.close();
+                Scene scene = new Scene(root);
 
-                    Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
+                stage.setScene(scene);
+                stage.setTitle(Main.name());
 
-                    Scene scene = new Scene(root);
-
-                    stage.setScene(scene);
-                    stage.setTitle(Main.name());
-
-                    stage.show();
-                }else{
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                            "Usuario y contraseña incorrecto");
-
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                stage.show();
+            } else {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                        "Usuario y contraseña incorrecto");
             }
-
         }
     }
 

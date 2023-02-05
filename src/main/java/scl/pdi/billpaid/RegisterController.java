@@ -57,12 +57,9 @@ public class RegisterController implements Initializable {
             try {
                 RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
 
+                raf.seek(raf.length());
+                raf.writeBytes( "\r\n" + username.getText()+ "," + password.getText() );
 
-                raf.writeBytes("Username:"+username.getText()+ "\r\n");
-                raf.writeBytes("Password:"+password.getText()+ "\r\n");
-
-                //User nuevoUser = new User(username.getText().toString(), password.getText().toString(), "user");
-                //System.out.println(nuevoUser);
 
 
                 clearForm();
