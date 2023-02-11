@@ -30,6 +30,8 @@ public class CreacionController extends MainPanelController {
     @FXML
     protected void onCrearGrupoButtonClick() {
 
+
+
         //crear el grupo
         grupo = new Grupo(tf_nombreGrupo.getText(),tf_descripcionGrupo.getText(),
                 (int) Double.parseDouble(tf_cantidadIntegrantes.getText()));
