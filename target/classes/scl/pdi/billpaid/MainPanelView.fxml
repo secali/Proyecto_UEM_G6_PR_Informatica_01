@@ -4,6 +4,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1350.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.MainPanelController">
@@ -45,7 +46,7 @@
                     <children>
                         <AnchorPane prefHeight="242.0" prefWidth="988.0">
                             <children>
-                                <Button fx:id="page02" layoutX="503.0" layoutY="-5.0" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Gestionar Grupos" textAlignment="JUSTIFY" underline="true">
+                                <Button fx:id="page02" layoutX="503.0" layoutY="-5.0" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Gestionar Grupos" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
@@ -53,7 +54,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button fx:id="bt_demo" layoutX="503.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY" underline="true">
+                                <Button fx:id="bt_demo" layoutX="503.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
@@ -61,10 +62,49 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
+                        <Button fx:id="bt_perfil" layoutX="503.0" layoutY="166.0" mnemonicParsing="false" onAction="#loadPerfil" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Perfil" textAlignment="JUSTIFY">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </children></HBox>
-                <HBox prefHeight="254.0" prefWidth="1190.0" />
+                <HBox prefHeight="254.0" prefWidth="1190.0">
+               <children>
+                  <AnchorPane fx:id="perfil_menu" prefHeight="253.0" prefWidth="1157.0" visible="false">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#404040" height="176.0" layoutX="316.0" stroke="BLACK" strokeType="INSIDE" width="575.0" />
+                        <Label layoutX="388.0" layoutY="21.0" text="Usuario" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="491.0" layoutY="21.0" text="Contraseña Antigua" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="perfil_user" layoutX="388.0" layoutY="65.0" text="Bill" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="field_pass" layoutX="496.0" layoutY="70.0" />
+                        <Label layoutX="682.0" layoutY="21.0" text="Contraseña Nueva" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="field_newpass" layoutX="680.0" layoutY="70.0" />
+                        <Button fx:id="bt_cambiarpass" layoutX="604.0" layoutY="126.0" mnemonicParsing="false" onAction="#onCambiarpass" text="Cambiar Contraseña" />
+                        <Label fx:id="ok" layoutX="755.0" layoutY="130.0" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children></HBox>
             </children>
         </VBox>
     </center>

@@ -143,7 +143,7 @@ public class MainPanelController   implements Initializable {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
 
-        Parent root = FXMLLoader.load(getClass().getResource("VerGrupos.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("CrearGrupos.fxml"));
 
         Scene scene = new Scene(root);
 
