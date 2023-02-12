@@ -53,7 +53,7 @@ public class TransaccionController extends MainPanelController{
     private TextField tf_deber_por;
 
     @FXML
-    private Button home;
+    private Button home, bt_crear, bt_modificar;
 
 
 
@@ -172,7 +172,19 @@ public class TransaccionController extends MainPanelController{
 
             tf_pagador_por.setText(t.getId_pagadores().toString());
             tf_deber_por.setText(t.getId_deudores().toString());
+
+            bt_modificar.setVisible(true);
+            bt_crear.setVisible(false);
         }
+    }
+
+    @FXML
+    protected void onGrabarModificacionClick(){
+        onEliminarTransaccionClick();
+        onCrearTransaccionButtonClick();
+
+        bt_modificar.setVisible(false);
+        bt_crear.setVisible(true);
     }
 
 
