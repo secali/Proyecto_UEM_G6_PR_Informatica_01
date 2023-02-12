@@ -25,10 +25,13 @@ import javafx.stage.Window;
 
 
 import scl.pdi.billpaid.helper.AlertHelper;
+import scl.pdi.billpaid.holders.UserHolder;
+import scl.pdi.billpaid.modelo.User;
 
 
 public class LoginController implements Initializable {
 
+    private User usuario;
     @FXML
     private TextField username;
 
@@ -72,6 +75,14 @@ public class LoginController implements Initializable {
 
                 stage.setScene(scene);
                 stage.setTitle(Main.name());
+
+
+                //PATRON SINGLETON
+                UserHolder holder = UserHolder.getInstance();
+                usuario = new User(enteredUsername, enteredPassword, "USER");
+
+                System.out.println(usuario);
+                holder.setUsuario(usuario);
 
                 stage.show();
             } else {

@@ -10,6 +10,7 @@ module scl.pdi.billpaid {
     requires java.sql;
     requires org.controlsfx.controls;
     requires com.oracle.database.jdbc;
+    requires lombok;
 
 
     opens scl.pdi.billpaid to javafx.fxml;

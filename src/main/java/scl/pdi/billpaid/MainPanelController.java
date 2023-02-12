@@ -16,14 +16,23 @@ import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import scl.pdi.billpaid.holders.UserHolder;
+import scl.pdi.billpaid.modelo.User;
 
 
 public class MainPanelController   implements Initializable {
+    private User usuario;
 
     @FXML
     private BorderPane borderPane;
+
+    @FXML
+    private AnchorPane perfil_menu;
 
     private List<Button> menus;
 
@@ -36,6 +45,12 @@ public class MainPanelController   implements Initializable {
     @FXML
     private LineChart<?, ?> chartReceipt;
 
+
+    @FXML
+    private Label perfil_user, ok;
+
+    @FXML
+    private PasswordField field_pass, field_newpass;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -150,7 +165,37 @@ public class MainPanelController   implements Initializable {
         stage.setScene(scene);
         stage.setTitle(Main.name());
 
+
         stage.show();
 
+    }
+
+    @FXML
+    private void loadPerfil() throws IOException {
+        UserHolder h = UserHolder.getInstance();
+        usuario = h.getUsuario();
+        System.out.println(usuario.toString());
+
+        perfil_user.setText(usuario.getUsername());
+
+
+        if (perfil_menu.isVisible())
+            perfil_menu.setVisible(false);
+        else {
+            perfil_menu.setVisible(true);
+            ok.setText("");
+        }
+    }
+
+    @FXML
+    private void onCambiarpass() throws IOException {
+        if(field_pass.getText().equals(usuario.getPassword())){
+            usuario.setPassword(field_newpass.getText());
+
+            ok.setText("Cambiada!");
+        }else ok.setText("Error!");
+
+        field_pass.clear();
+        field_newpass.clear();;
     }
 }
