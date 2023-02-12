@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.sql.ClientInfoStatus;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TransaccionController extends MainPanelController {
@@ -28,7 +30,7 @@ public class TransaccionController extends MainPanelController {
     @FXML
     private TextField tf_nombre_transaccion;
     @FXML
-    private TextArea tf_descrip_trans;
+    private TextField tf_descrip_trans;
     @FXML
     private TextField tf_cantidad;
     private double cantidad = 0.00;
@@ -72,7 +74,7 @@ public class TransaccionController extends MainPanelController {
         cantidad += transaccion.getCantidad();
         lb_cantidad.setText(Double.toString(cantidad) + " €");
 
-
+        cleanForm();
     }
 
 
@@ -126,6 +128,37 @@ public class TransaccionController extends MainPanelController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    @FXML
+    protected void onModificarTransaccionClick(){
+        int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
+        if (idx_eliminar >= 0) {
+            Transaccion t = transacciones_almacenadas.get(idx_eliminar);
+
+            tf_nombre_transaccion.setText(t.getNombre());
+            tf_descrip_trans.setText(t.getDescripcion());
+            tf_cantidad.setText(String.valueOf(t.getCantidad()));
+
+            DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(t.getFecha(), customDateTimeFormatter);
+
+            date_fecha_transaccion.setValue(localDate);
+
+            tf_pagador_por.setText(t.getId_pagadores().toString());
+            tf_deber_por.setText(t.getId_deudores().toString());
+        }
+    }
+
+
+    private void cleanForm(){
+        tf_nombre_transaccion.clear();
+        tf_descrip_trans.clear();
+        tf_cantidad.clear();
+        tf_pagador_por.clear();
+        tf_deber_por.clear();
+        date_fecha_transaccion.getEditor().clear();
     }
 }
 
