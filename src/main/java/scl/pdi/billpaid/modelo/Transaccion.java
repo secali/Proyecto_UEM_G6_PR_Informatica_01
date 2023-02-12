@@ -8,7 +8,7 @@ public class Transaccion {
     private String id_grupo;
     private String nombre;
     private String descripcion;
-    private double cantidad;
+    private double importe;
     private String tipoTransaccion;
 
     private List id_pagadores;
@@ -16,11 +16,11 @@ public class Transaccion {
 
     private String fecha;
 
-    public Transaccion(String id_grupo, String nombre, String descripcion, double cantidad, String tipoTransaccion, List id_pagadores, List id_deudores, String fecha) {
+    public Transaccion(String id_grupo, String nombre, String descripcion, double importe, String tipoTransaccion, List id_pagadores, List id_deudores, String fecha) {
         this.id_grupo = id_grupo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.cantidad = cantidad;
+        this.importe = importe;
         this.tipoTransaccion = tipoTransaccion;
         this.id_pagadores = id_pagadores;
         this.id_deudores = id_deudores;
@@ -52,11 +52,11 @@ public class Transaccion {
     }
 
     public double getCantidad() {
-        return cantidad;
+        return importe;
     }
 
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
+    public void setCantidad(double importe) {
+        this.importe = importe;
     }
 
     public String getTipoTransaccion() {
@@ -92,7 +92,7 @@ public class Transaccion {
     }
 
     public String transaccion2List(){
-        return nombre+" --------- Pagado por "+id_pagadores+" --------- "+fecha+" ------- "+ "A deber por "+id_deudores+" ------- " +cantidad+"€";
+        return nombre+" --------- Pagado por "+id_pagadores+" --------- "+fecha+" ------- "+ "A deber por "+id_deudores+" ------- " +importe+"€";
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Transaccion {
                 "id_grupo='" + id_grupo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", cantidad='" + cantidad + '\'' +
+                ", importe='" + importe + '\'' +
                 ", tipoTransaccion='" + tipoTransaccion + '\'' +
                 ", id_pagadores=" + id_pagadores +
                 ", id_deudores=" + id_deudores +
