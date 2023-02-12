@@ -1,11 +1,18 @@
 package scl.pdi.billpaid;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.WindowEvent;
+import scl.pdi.billpaid.holders.GrupoHolder;
+import scl.pdi.billpaid.holders.UserHolder;
+import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.Transaccion;
 import scl.pdi.billpaid.modelo.User;
 
@@ -13,18 +20,22 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
 import java.sql.ClientInfoStatus;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class TransaccionController extends MainPanelController {
+public class TransaccionController extends MainPanelController{
+
+    private Grupo grupo;
     private Transaccion transaccion;
     private ArrayList<Transaccion> transacciones_almacenadas = new ArrayList<>();
     private ArrayList<User> deudores = new ArrayList<>();
     @FXML
-    private Label lb_cantidad;
+    private Label lb_cantidad, lb_grupos;
     @FXML
     private ListView<String> list_transacciones;
     @FXML
@@ -45,7 +56,17 @@ public class TransaccionController extends MainPanelController {
     private Button home;
 
 
-    @FXML
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        GrupoHolder h = GrupoHolder.getInstance();
+        grupo = h.getGrupo();
+        System.out.println(grupo.toString());
+
+        lb_grupos.setText(grupo.getNombre());
+    }
+
+        @FXML
     protected void onCrearTransaccionButtonClick() {
 
         ArrayList<String> pagadores = new ArrayList<>();

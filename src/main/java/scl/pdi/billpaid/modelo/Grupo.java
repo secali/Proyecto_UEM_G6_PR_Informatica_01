@@ -38,7 +38,7 @@ public class Grupo {
         this.ID_Grupo = ID_Persona;
     }
     public String getNombre() {
-        return Descripcion;
+        return ID_Grupo;
     }
     public void setNombre(String nombre) {
         this.Descripcion = nombre;

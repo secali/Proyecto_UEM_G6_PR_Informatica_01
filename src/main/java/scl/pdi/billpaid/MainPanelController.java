@@ -21,12 +21,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import scl.pdi.billpaid.holders.GrupoHolder;
 import scl.pdi.billpaid.holders.UserHolder;
+import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.User;
 
 
 public class MainPanelController   implements Initializable {
     private User usuario;
+    private Grupo grupo;
 
     @FXML
     private BorderPane borderPane;
@@ -73,6 +76,7 @@ public class MainPanelController   implements Initializable {
         }
 
     }
+
 
     @FXML
     private void clear() {
@@ -157,6 +161,14 @@ public class MainPanelController   implements Initializable {
     private void loadDemoGroup(ActionEvent e) throws IOException {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
+
+        //simula la creacion de un grupo porque el CRUD de grupos no funciona, SINGLETON
+        GrupoHolder holder = GrupoHolder.getInstance();
+        grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante", 4);
+        System.out.println(grupo);
+
+
+        holder.setGrupo(grupo);
 
         Parent root = FXMLLoader.load(getClass().getResource("TransaccionView.fxml"));
 
