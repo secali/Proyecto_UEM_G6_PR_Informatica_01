@@ -9,8 +9,24 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1350.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scl.pdi.billpaid.TransaccionController">
     <left>
-        <VBox prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" prefHeight="601.0" prefWidth="160.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
             <children>
+                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupos" textAlignment="JUSTIFY">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+            <Button fx:id="home" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Home" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
                 <Button fx:id="addPurchase" mnemonicParsing="false" onAction="#loadHomeView" prefHeight="30.0" prefWidth="189.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" textAlignment="JUSTIFY" visible="false">
                     <VBox.margin>
                         <Insets top="10.0" />
@@ -24,22 +40,6 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="page02" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Crear Grupos" textAlignment="JUSTIFY">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            <Button fx:id="page03" layoutX="10.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadPage02View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Ver Grupos" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
 
             </children>
         </VBox>

@@ -41,6 +41,8 @@ public class TransaccionController extends MainPanelController {
     @FXML
     private TextField tf_deber_por;
 
+    @FXML
+    private Button home;
 
     @FXML
     protected void onCrearTransaccionButtonClick() {
