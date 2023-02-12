@@ -75,7 +75,7 @@
                 <AnchorPane maxHeight="600.0" maxWidth="720.0" minHeight="600.0" minWidth="720.0" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="539.0" layoutX="5.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="868.0" />
-                        <Label fx:id="lb_grupos" layoutX="64.0" layoutY="57.0" text="Nombre de la Transaccion">
+                        <Label fx:id="lb_grupos" layoutX="64.0" layoutY="57.0" text="Grupo de Fiesta">
                             <font>
                                 <Font size="18.0" />
                             </font>
