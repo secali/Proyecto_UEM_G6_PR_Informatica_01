@@ -92,7 +92,7 @@ public class Transaccion {
     }
 
     public String transaccion2List(){
-        return nombre+" --------- Pagado por "+id_pagadores+" --------- "+fecha+" ------- "+cantidad+"€";
+        return nombre+" --------- Pagado por "+id_pagadores+" --------- "+fecha+" ------- "+ "A deber por "+id_deudores+" ------- " +cantidad+"€";
     }
 
     @Override

@@ -72,6 +72,9 @@ public class TransaccionController extends MainPanelController{
         ArrayList<String> pagadores = new ArrayList<>();
         pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
+            ArrayList<String> deudores = new ArrayList<>();
+            deudores.add(tf_deber_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
+
         //deudoSres.add(tf_deber_por.getText());
         //falta ajustar esto del string.....
         //String[] deudores_str = split(tf_deber_por.getText());
