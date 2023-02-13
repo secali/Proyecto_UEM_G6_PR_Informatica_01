@@ -75,6 +75,8 @@ public class TransaccionController extends MainPanelController {
         usuario = hol.getUsuario();
         System.out.println(usuario.toString());
 
+        usuario.setRole("PREMIUM");
+
     }
 
     @FXML
