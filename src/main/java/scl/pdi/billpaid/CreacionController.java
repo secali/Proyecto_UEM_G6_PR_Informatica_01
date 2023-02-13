@@ -1,23 +1,25 @@
 package scl.pdi.billpaid;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import scl.pdi.billpaid.MainPanelController;
 import scl.pdi.billpaid.modelo.Grupo;
 
 import java.util.ArrayList;
 
 public class CreacionController extends MainPanelController {
     private Grupo grupo;
-    private ArrayList<Grupo> gruposAlmacenados=new ArrayList<>();
+    private ArrayList<Grupo> gruposAlmacenados = new ArrayList<>();
 
     //contador
     private double cantidad = 0.00;
 
     @FXML
-    private ListView <String> list_grupos;
+    private ListView<String> list_grupos;
     @FXML
     private Label lb_cantidad;
     @FXML
@@ -31,9 +33,8 @@ public class CreacionController extends MainPanelController {
     protected void onCrearGrupoButtonClick() {
 
 
-
         //crear el grupo
-        grupo = new Grupo(tf_nombreGrupo.getText(),tf_descripcionGrupo.getText(),
+        grupo = new Grupo(tf_nombreGrupo.getText(), tf_descripcionGrupo.getText(),
                 (int) Double.parseDouble(tf_cantidadIntegrantes.getText()));
 
         //Pintar la lista
@@ -60,6 +61,7 @@ public class CreacionController extends MainPanelController {
         }
 
     }
+
     @FXML
     protected void onEliminarTransaccionClick() {
         int idx_eliminar = list_grupos.getSelectionModel().getSelectedIndex();

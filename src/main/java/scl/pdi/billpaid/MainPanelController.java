@@ -1,12 +1,5 @@
 package scl.pdi.billpaid;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,8 +19,16 @@ import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.User;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class MainPanelController   implements Initializable {
+
+public class MainPanelController implements Initializable {
     private User usuario;
     private Grupo grupo;
 
@@ -201,13 +202,14 @@ public class MainPanelController   implements Initializable {
 
     @FXML
     private void onCambiarpass() throws IOException {
-        if(field_pass.getText().equals(usuario.getPassword())){
+        if (field_pass.getText().equals(usuario.getPassword())) {
             usuario.setPassword(field_newpass.getText());
 
             ok.setText("Cambiada!");
-        }else ok.setText("Error!");
+        } else ok.setText("Error!");
 
         field_pass.clear();
-        field_newpass.clear();;
+        field_newpass.clear();
+        ;
     }
 }

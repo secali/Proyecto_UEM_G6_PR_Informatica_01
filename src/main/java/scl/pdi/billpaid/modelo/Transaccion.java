@@ -1,7 +1,5 @@
 package scl.pdi.billpaid.modelo;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class Transaccion {
@@ -91,8 +89,8 @@ public class Transaccion {
         this.fecha = fecha;
     }
 
-    public String transaccion2List(){
-        return nombre+" --------- Pagado por "+id_pagadores+" --------- "+fecha+" ------- "+ "A deber por "+id_deudores+" ------- " +importe+"€";
+    public String transaccion2List() {
+        return nombre + " --------- Pagado por " + id_pagadores + " --------- " + fecha + " ------- " + "A deber por " + id_deudores + " ------- " + importe + "€";
     }
 
     @Override

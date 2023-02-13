@@ -1,12 +1,5 @@
 package scl.pdi.billpaid;
 
-import scl.pdi.billpaid.helper.AlertHelper;
-import scl.pdi.billpaid.Main;
-import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,37 +10,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import scl.pdi.billpaid.modelo.User;
+import scl.pdi.billpaid.helper.AlertHelper;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class RegisterController implements Initializable {
 
 
+    Window window;
+    boolean p;
     @FXML
     private TextField username;
-
     @FXML
     private TextField password;
-
     @FXML
     private TextField confirmPassword;
-
     @FXML
     private Button registerButton;
-
-    Window window;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-   boolean p;
-
-
     @FXML
     void register() throws IOException {
-
 
 
         window = registerButton.getScene().getWindow();
@@ -58,14 +52,12 @@ public class RegisterController implements Initializable {
                 RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
 
                 raf.seek(raf.length());
-                raf.writeBytes( "\r\n" + username.getText()+ "," + password.getText() );
-
+                raf.writeBytes("\r\n" + username.getText() + "," + password.getText());
 
 
                 clearForm();
                 AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                         "Usuario registrado.");
-
 
 
             } catch (FileNotFoundException ex) {
@@ -76,7 +68,6 @@ public class RegisterController implements Initializable {
 
         }
     }
-
 
 
     private boolean isValidated() throws IOException {

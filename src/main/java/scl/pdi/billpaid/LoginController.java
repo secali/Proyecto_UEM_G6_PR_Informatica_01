@@ -1,5 +1,19 @@
 package scl.pdi.billpaid;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import scl.pdi.billpaid.helper.AlertHelper;
+import scl.pdi.billpaid.holders.UserHolder;
+import scl.pdi.billpaid.modelo.User;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,40 +24,18 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-
-import javafx.stage.Stage;
-import javafx.stage.Window;
-
-
-import scl.pdi.billpaid.helper.AlertHelper;
-import scl.pdi.billpaid.holders.UserHolder;
-import scl.pdi.billpaid.modelo.User;
-
-
 public class LoginController implements Initializable {
 
+    Window window;
+    Map<String, String> users = new HashMap<>();
     private User usuario;
     @FXML
     private TextField username;
-
     @FXML
     private TextField password;
-
     @FXML
     private Button loginButton;
 
-    Window window;
-
-    Map<String, String> users = new HashMap<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {

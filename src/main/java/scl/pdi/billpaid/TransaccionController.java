@@ -1,17 +1,10 @@
 package scl.pdi.billpaid;
 
-import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
-import javafx.stage.WindowEvent;
 import scl.pdi.billpaid.holders.GrupoHolder;
-import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.Transaccion;
 import scl.pdi.billpaid.modelo.User;
@@ -19,16 +12,13 @@ import scl.pdi.billpaid.modelo.User;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.URL;
-import java.sql.ClientInfoStatus;
-import java.time.Clock;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class TransaccionController extends MainPanelController{
+public class TransaccionController extends MainPanelController {
 
     private Grupo grupo;
     private Transaccion transaccion;
@@ -56,7 +46,6 @@ public class TransaccionController extends MainPanelController{
     private Button home, bt_crear, bt_modificar;
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GrupoHolder h = GrupoHolder.getInstance();
@@ -69,7 +58,7 @@ public class TransaccionController extends MainPanelController{
 
         grupo.cargarDemoTransacciones();
 
-        for(int i=0; i< grupo.getTransacciones().size(); i++){
+        for (int i = 0; i < grupo.getTransacciones().size(); i++) {
             list_transacciones.getItems().add(grupo.getTransacciones().get(i).transaccion2List());
             transacciones_almacenadas.add(grupo.getTransacciones().get(i));
 
@@ -79,9 +68,9 @@ public class TransaccionController extends MainPanelController{
 
     }
 
-        @FXML
+    @FXML
     protected void onCrearTransaccionButtonClick() {
-        if(!(tf_nombre_transaccion.getText().isBlank() || tf_cantidad.getText().isBlank() || tf_pagador_por.getText().isBlank() || tf_deber_por.getText().isBlank())) {
+        if (!(tf_nombre_transaccion.getText().isBlank() || tf_cantidad.getText().isBlank() || tf_pagador_por.getText().isBlank() || tf_deber_por.getText().isBlank())) {
             ArrayList<String> pagadores = new ArrayList<>();
             pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
 
@@ -145,15 +134,15 @@ public class TransaccionController extends MainPanelController{
         System.out.println(idx_eliminar);
 
 
-            if (idx_eliminar >= 0) {
-                list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
+        if (idx_eliminar >= 0) {
+            list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
-                //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                cantidad -= grupo.getTransacciones().get(idx_eliminar).getCantidad();
-                lb_cantidad.setText(Double.toString(cantidad) + " €");
-                transacciones_almacenadas.remove(idx_eliminar);
-                grupo.removeTransaccion(idx_eliminar);
-            }
+            //Actualiza la cantidad mostrada y elimina el objeto almacenado
+            cantidad -= grupo.getTransacciones().get(idx_eliminar).getCantidad();
+            lb_cantidad.setText(Double.toString(cantidad) + " €");
+            transacciones_almacenadas.remove(idx_eliminar);
+            grupo.removeTransaccion(idx_eliminar);
+        }
 
     }
 
@@ -175,7 +164,7 @@ public class TransaccionController extends MainPanelController{
 
 
     @FXML
-    protected void onModificarTransaccionClick(){
+    protected void onModificarTransaccionClick() {
         int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
         if (idx_eliminar >= 0) {
             Transaccion t = transacciones_almacenadas.get(idx_eliminar);
@@ -198,7 +187,7 @@ public class TransaccionController extends MainPanelController{
     }
 
     @FXML
-    protected void onGrabarModificacionClick(){
+    protected void onGrabarModificacionClick() {
         onEliminarTransaccionClick();
         onCrearTransaccionButtonClick();
 
@@ -207,7 +196,7 @@ public class TransaccionController extends MainPanelController{
     }
 
 
-    private void cleanForm(){
+    private void cleanForm() {
         tf_nombre_transaccion.clear();
         tf_descrip_trans.clear();
         tf_cantidad.clear();

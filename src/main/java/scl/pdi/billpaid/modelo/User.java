@@ -1,8 +1,5 @@
 package scl.pdi.billpaid.modelo;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
 public class User {
 
     private String username;

@@ -5,18 +5,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import scl.pdi.billpaid.modelo.Grupo;
 
 
 public class Main extends Application {
+
+    public static String name() {
+        String name = "BillPaid";
+        return name;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+
+    }
 
     public void start(Stage stage) throws Exception {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-
-
-
 
 
         Scene scene = new Scene(root);
@@ -26,13 +32,5 @@ public class Main extends Application {
 
 
         stage.show();
-    }
-    public static String name(){
-        String name = "BillPaid";
-        return name;
-    }
-    public static void main(String[] args) {
-        launch(args);
-
     }
 }

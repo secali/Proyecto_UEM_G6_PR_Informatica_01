@@ -1,4 +1,5 @@
 package scl.pdi.billpaid.helper;
+
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 import javafx.util.Duration;

@@ -1,15 +1,16 @@
 package scl.pdi.billpaid.modelo;
 
-public class DeudaGrupo{
+public class DeudaGrupo {
     private int ID_Grupo;
     private double saldoCalculado;
     private int ID_Persona;
 
-    public DeudaGrupo(int ID_Grupo, double saldoCalculado, int ID_Persona){
+    public DeudaGrupo(int ID_Grupo, double saldoCalculado, int ID_Persona) {
         this.ID_Grupo = ID_Grupo;
         this.saldoCalculado = saldoCalculado;
         this.ID_Persona = ID_Persona;
     }
+
     //mostrarDeudaGrupo()
     public String toString() {
         return "Deuda{" +
