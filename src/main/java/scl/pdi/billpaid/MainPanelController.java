@@ -53,7 +53,7 @@ public class MainPanelController implements Initializable {
 
 
     @FXML
-    private Label perfil_user, ok;
+    private Label perfil_user, ok, lb_premium;
 
     @FXML
     private PasswordField field_pass, field_newpass;
@@ -192,6 +192,11 @@ public class MainPanelController implements Initializable {
         System.out.println(usuario.toString());
 
         perfil_user.setText(usuario.getUsername());
+
+        if (usuario.getUsername().equals("admin")) lb_premium.setText("PREMIUM");
+        else lb_premium.setText(usuario.getRole());
+
+
 
 
         if (perfil_menu.isVisible())
