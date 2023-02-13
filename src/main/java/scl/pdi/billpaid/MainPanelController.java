@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import scl.pdi.billpaid.holders.GrupoHolder;
 import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
@@ -32,6 +33,7 @@ public class MainPanelController implements Initializable {
     private User usuario;
     private Grupo grupo;
 
+    Window window;
     @FXML
     private BorderPane borderPane;
 

@@ -56,7 +56,7 @@ public class RegisterController implements Initializable {
 
 
                 clearForm();
-                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Información",
                         "Usuario registrado.");
 
 

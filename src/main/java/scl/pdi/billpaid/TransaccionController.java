@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Window;
+import scl.pdi.billpaid.helper.AlertHelper;
 import scl.pdi.billpaid.holders.GrupoHolder;
+import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.Transaccion;
 import scl.pdi.billpaid.modelo.User;
@@ -22,6 +25,8 @@ public class TransaccionController extends MainPanelController {
 
     private Grupo grupo;
     private Transaccion transaccion;
+    Window window;
+    private User usuario;
     private ArrayList<Transaccion> transacciones_almacenadas;
     private ArrayList<User> deudores = new ArrayList<>();
     @FXML
@@ -43,7 +48,7 @@ public class TransaccionController extends MainPanelController {
     private TextField tf_deber_por;
 
     @FXML
-    private Button home, bt_crear, bt_modificar;
+    private Button home, bt_crear, bt_modificar, bt_premium;
 
 
     @Override
@@ -65,6 +70,10 @@ public class TransaccionController extends MainPanelController {
             cantidad += grupo.getTransacciones().get(i).getCantidad();
             lb_cantidad.setText(Double.toString(cantidad) + " €");
         }
+
+        UserHolder hol = UserHolder.getInstance();
+        usuario = hol.getUsuario();
+        System.out.println(usuario.toString());
 
     }
 
@@ -203,6 +212,21 @@ public class TransaccionController extends MainPanelController {
         tf_pagador_por.clear();
         tf_deber_por.clear();
         date_fecha_transaccion.getEditor().clear();
+    }
+
+
+    @FXML
+    protected void onPremium(){
+        if (!usuario.getRole().equals("PREMIUM")){
+            window = bt_premium.getScene().getWindow();
+
+            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                    "Usted no disfruta de cuenta PREMIUM!");
+
+        }else {
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "ATENCIÓN",
+                    "Esta funcionalidad estará disponible muy pronto!");
+        }
     }
 }
 
