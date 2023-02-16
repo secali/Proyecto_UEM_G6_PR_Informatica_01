@@ -12,10 +12,9 @@ public class Grupo {
 
 
     //Constructor para Nombre de grupo, descripcion del grupo, cantidad de integrantes.
-    public Grupo(String ID_Grupo, String Descripcion, double CantidadIntegrantes) {
+    public Grupo(String ID_Grupo, String Descripcion) {
         this.ID_Grupo = ID_Grupo;
         this.Descripcion = Descripcion;
-        this.CantidadIntegrantes = CantidadIntegrantes;
 
         transacciones = new ArrayList<>();
 
@@ -81,14 +80,13 @@ public class Grupo {
 
 
     public String listarGrupo() {
-        return ID_Grupo + " --------- Nombre del grupo" + Descripcion + " --------- " + CantidadIntegrantes;
+        return ID_Grupo + " --------- Nombre del grupo" + Descripcion + " --------- (Click para abrir transacciones)";
     }
 
     public String toString() {
         return "Grupo {" +
                 "id_grupo ='" + ID_Grupo + '\'' +
-                ", nombre='" + Descripcion + '\'' +
-                ", Cantidad de Integrantes='" + CantidadIntegrantes + '\'' +
+                ", nombre='" + Descripcion + '\''+
                 '}';
     }
 

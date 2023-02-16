@@ -47,7 +47,7 @@
                     <children>
                         <AnchorPane prefHeight="242.0" prefWidth="988.0">
                             <children>
-                                <Button fx:id="page02" layoutX="503.0" layoutY="-5.0" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Gestionar Grupos" textAlignment="JUSTIFY">
+                                <Button fx:id="page02" layoutX="265.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadPage01View" prefHeight="172.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Gestionar Grupos" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
@@ -55,7 +55,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button fx:id="bt_demo" layoutX="503.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY">
+                                <Button fx:id="bt_demo" layoutX="543.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadDemoGroup" prefHeight="171.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Grupo Demo" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
@@ -63,7 +63,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button fx:id="bt_perfil" layoutX="503.0" layoutY="166.0" mnemonicParsing="false" onAction="#loadPerfil" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Perfil" textAlignment="JUSTIFY">
+                                <Button fx:id="bt_perfil" layoutX="820.0" layoutY="77.0" mnemonicParsing="false" onAction="#loadPerfil" prefHeight="171.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Perfil" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>

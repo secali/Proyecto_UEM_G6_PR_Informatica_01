@@ -11,6 +11,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -37,6 +39,9 @@ public class MainPanelController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
+
+    @FXML
+    private ImageView img_grupo;
     @FXML
     private AnchorPane perfil_menu;
 
@@ -167,7 +172,7 @@ public class MainPanelController implements Initializable {
 
         //simula la creacion de un grupo porque el CRUD de grupos no funciona, SINGLETON
         GrupoHolder holder = GrupoHolder.getInstance();
-        grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante", 4);
+        grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante");
         System.out.println(grupo);
 
 

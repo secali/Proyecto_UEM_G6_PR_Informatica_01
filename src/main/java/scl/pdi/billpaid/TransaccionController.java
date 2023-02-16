@@ -55,7 +55,6 @@ public class TransaccionController extends MainPanelController {
     public void initialize(URL location, ResourceBundle resources) {
         GrupoHolder h = GrupoHolder.getInstance();
         grupo = h.getGrupo();
-        System.out.println(grupo.toString());
 
         lb_grupos.setText(grupo.getNombre());
 
@@ -73,9 +72,8 @@ public class TransaccionController extends MainPanelController {
 
         UserHolder hol = UserHolder.getInstance();
         usuario = hol.getUsuario();
-        System.out.println(usuario.toString());
 
-        usuario.setRole("PREMIUM");
+        if(usuario.getUsername().equals("admin"))usuario.setRole("PREMIUM");
 
     }
 
