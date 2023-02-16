@@ -8,3 +8,4 @@ Información de la jerarquía del proyecto:
 - Las vistas son preferibles manejarse con el Scene Builder de IntelliJ, que es una librería que permite hacer las
   pantallas arrastrando y soltando elementos.
 - El modelo de datos (las clases) las programaremos en la ruta src\main\resources\scl.pdi.billpaid\modelo..
+- Las clases con el patron Singleton están en la carpeta holders.
