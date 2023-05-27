@@ -1,5 +1,6 @@
 package scl.pdi.billpaid;
 
+import org.mariadb.jdbc.Driver;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,9 @@ import scl.pdi.billpaid.modelo.Grupo;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -54,11 +58,19 @@ public class CreacionController extends MainPanelController {
 
     }
     @FXML
-    protected void onCrearGrupoButtonClick() {
+    protected void onCrearGrupoButtonClick() throws SQLException {
+        String url = "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com";
+        String user = "admin";
+        String password = "Proyecto48";
 
+        Connection conn = DriverManager.getConnection(url, user, password);
 
         //crear el grupo
         grupo = new Grupo(tf_nombreGrupo.getText(), tf_descripcionGrupo.getText());
+
+        //CREAR LA QUERY PARA CREAR GRUPO COGIENDO LOS CAMPOS DE LA INTERFAZ
+
+
 
         //Pintar la lista
         list_grupos.getItems().addAll(grupo.listarGrupo());
@@ -100,14 +112,24 @@ public class CreacionController extends MainPanelController {
     */
 
     @FXML
-    protected void onEliminarGrupoClick() {
+    protected void onEliminarGrupoClick() throws SQLException {
+
+        String url = "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com";
+        String user = "admin";
+        String password = "Proyecto48";
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+
+        //DEVUELVE EL ELEMENTO A ELIMINAR, QUE ESTÁ SELECCIONADO CON EL RATON
         int idx_eliminar = list_grupos.getSelectionModel().getSelectedIndex();
 
         System.out.println(idx_eliminar);
 
 
-        if (idx_eliminar >= 0) {
+        if (idx_eliminar >= 0) { //AQUI SE LLAMA AL JDBC Y SE METE LA QUERY DE BORRAR GRUPO CON ID_GRUPO = IDX_ELIMINAR
             list_grupos.getItems().remove(idx_eliminar);  //elimina de la lista
+
+
 
             //Actualiza la cantidad mostrada y elimina el objeto almacenado
             cantidad -= gruposAlmacenados.get(idx_eliminar).getCantidadIntegrantes();
