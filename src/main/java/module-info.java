@@ -11,6 +11,7 @@ module scl.pdi.billpaid {
     requires org.controlsfx.controls;
     requires com.oracle.database.jdbc;
     requires lombok;
+    requires org.mariadb.jdbc;
 
 
     opens scl.pdi.billpaid to javafx.fxml;

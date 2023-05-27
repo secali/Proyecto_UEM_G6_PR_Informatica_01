@@ -1,4 +1,6 @@
 package scl.pdi.billpaid;
+import org.mariadb.jdbc.Driver;
+import java.sql.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,30 +43,37 @@ public class RegisterController implements Initializable {
     }
 
     @FXML
-    void register() throws IOException {
+    void register() throws IOException, SQLException {
 
 
         window = registerButton.getScene().getWindow();
 
         if (this.isValidated()) {
+                String mail = "hola";
+                String nombre = "hol1";
+                Connection connection = DriverManager.getConnection(
+                        "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                        "admin", "Proyecto48"
+                );
 
-            try {
-                RandomAccessFile raf = new RandomAccessFile("logins.txt", "rw");
+                String consulta = "INSERT INTO Usuario (username, nombre, email, passw) VALUES (?, ?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(consulta);
+                statement.setString(1, username.getText());
+                statement.setString(4, password.getText());
+                statement.setString(3, mail);
+                statement.setString(2, nombre);
 
-                raf.seek(raf.length());
-                raf.writeBytes("\r\n" + username.getText() + "," + password.getText());
+            clearForm();
+
+            statement.executeUpdate();
+                statement.close();
+                connection.close();
 
 
-                clearForm();
-                AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Información",
-                        "Usuario registrado.");
 
 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Información",
+                    "Usuario registrado.");
 
         }
     }

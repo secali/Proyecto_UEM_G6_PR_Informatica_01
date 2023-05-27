@@ -18,16 +18,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 
-public class LoginController implements Initializable {
+public class LoginController {
 
     Window window;
-    Map<String, String> users = new HashMap<>();
+
     private User usuario;
     @FXML
     private TextField username;
@@ -36,53 +40,46 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
-            Scanner scanner = new Scanner(new File("logins.txt"));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(",");
-                users.put(parts[0], parts[1]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
-    private void login() throws Exception {
+    public void login() throws Exception {
+
+
         if (this.isValidated()) {
-            String enteredUsername = username.getText();
-            String enteredPassword = password.getText();
+            String Username = username.getText();
+            String Password = password.getText();
 
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            );
 
-            if (users.containsKey(enteredUsername) && users.get(enteredUsername).equals(enteredPassword)) {
+            String consulta = "SELECT * FROM Usuario WHERE username = ? AND passw = ?";
+            PreparedStatement statement = connection.prepareStatement(consulta);
+
+            statement.setString(1, Username);
+            statement.setString(2, Password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+
+                    System.out.println("Login correcto");
+                Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
-
-                Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
-
                 Scene scene = new Scene(root);
 
                 stage.setScene(scene);
                 stage.setTitle(Main.name());
 
-
-                //PATRON SINGLETON
-                UserHolder holder = UserHolder.getInstance();
-                usuario = new User(enteredUsername, enteredPassword, "USER");
-
-                System.out.println(usuario);
-                holder.setUsuario(usuario);
-
                 stage.show();
-            } else {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                        "Usuario y contraseña incorrecto");
+                }
+                else System.err.println("Login incorrecto");
             }
         }
-    }
+
+
 
     private boolean isValidated() {
 
@@ -110,7 +107,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void showRegisterStage() throws IOException {
+    public void showRegisterStage() throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
 
