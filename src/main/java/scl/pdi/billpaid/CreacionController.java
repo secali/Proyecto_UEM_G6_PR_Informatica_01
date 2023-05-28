@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import scl.pdi.billpaid.holders.GrupoHolder;
 import scl.pdi.billpaid.holders.ListGruposHolder;
 import scl.pdi.billpaid.modelo.Grupo;
+import scl.pdi.billpaid.modelo.Sesion;
 
 import java.io.IOException;
 import java.net.URL;
@@ -122,6 +123,7 @@ public class CreacionController extends MainPanelController {
 
     @FXML
     protected void onEntrarTransaccion() throws IOException {
+        Sesion.setLatestIdGroup(grupo.getNombre());
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
 
