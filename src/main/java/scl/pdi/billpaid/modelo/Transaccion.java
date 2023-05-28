@@ -21,7 +21,4 @@ public class Transaccion {
     private String id_deudor;
     private String id_creador;
 
-
-    public Transaccion(String id, String nombre, String descripcion, double parseDouble, String idUsernamePagador, String idUsernameDeudor, String usernameCreador) {
-    }
 }
