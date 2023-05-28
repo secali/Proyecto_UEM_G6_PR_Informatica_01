@@ -4,7 +4,7 @@ import java.sql.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,16 +14,11 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import scl.pdi.billpaid.helper.AlertHelper;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-public class RegisterController implements Initializable {
+
+public class RegisterController{
 
 
     Window window;
@@ -31,16 +26,15 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField username;
     @FXML
+    private TextField name;
+    @FXML
+    private TextField email;
+    @FXML
     private TextField password;
     @FXML
     private TextField confirmPassword;
     @FXML
     private Button registerButton;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
 
     @FXML
     void register() throws IOException, SQLException {
@@ -49,8 +43,7 @@ public class RegisterController implements Initializable {
         window = registerButton.getScene().getWindow();
 
         if (this.isValidated()) {
-                String mail = "hola";
-                String nombre = "hol1";
+
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
                         "admin", "Proyecto48"
@@ -59,18 +52,14 @@ public class RegisterController implements Initializable {
                 String consulta = "INSERT INTO Usuario (username, nombre, email, passw) VALUES (?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(consulta);
                 statement.setString(1, username.getText());
+                statement.setString(2, name.getText());
+                statement.setString(3, email.getText());
                 statement.setString(4, password.getText());
-                statement.setString(3, mail);
-                statement.setString(2, nombre);
 
-            clearForm();
-
-            statement.executeUpdate();
-                statement.close();
-                connection.close();
-
-
-
+                    clearForm();
+                    statement.executeUpdate();
+                    statement.close();
+                    connection.close();
 
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Información",
                     "Usuario registrado.");
@@ -120,6 +109,8 @@ public class RegisterController implements Initializable {
 
         username.clear();
         password.clear();
+        name.clear();
+        email.clear();
         confirmPassword.clear();
         return true;
     }
