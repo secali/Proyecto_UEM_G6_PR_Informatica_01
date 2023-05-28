@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,5 +19,6 @@ public class Transaccion {
     private String id_pagador;
     private String id_deudor;
     private String id_creador;
+    private String id_transaccion;
 
 }

@@ -30,7 +30,7 @@ public class TransaccionController extends MainPanelController {
     Window window;
     private final String usuario = Sesion.getUserId();
     private ArrayList<Transaccion> transacciones_almacenadas;
-    private final ArrayList<User> deudores = new ArrayList<>();
+
     @FXML
     private Label lb_cantidad, lb_grupos;
     @FXML
@@ -84,7 +84,7 @@ public class TransaccionController extends MainPanelController {
                 String id_username_pagador =  resultSet.getString(6);
                 String id_username_deudor =  resultSet.getString(7);
                 String username_creador = resultSet.getString(8);
-                transaccion =  new Transaccion(id,nombre,descripcion,fecha,Double.parseDouble(cantidad),id_username_pagador,id_username_deudor,username_creador);
+                transaccion =  new Transaccion("ID_DEL_GRUPO",nombre,descripcion,fecha,Double.parseDouble(cantidad),id_username_pagador,id_username_deudor,username_creador, id);
                 transacciones_almacenadas.add(transaccion);
 
                 list_transacciones.getItems().add(transaccion.toString());
@@ -112,26 +112,16 @@ public class TransaccionController extends MainPanelController {
     protected void onCrearTransaccionButtonClick() throws SQLException {
         if (!(tf_nombre_transaccion.getText().isBlank() || tf_cantidad.getText().isBlank() || tf_pagador_por.getText().isBlank() || tf_deber_por.getText().isBlank())) {
             ArrayList<String> pagadores = new ArrayList<>();
-            pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
+            pagadores.add(tf_pagador_por.getText());
 
             ArrayList<String> deudores = new ArrayList<>();
-            deudores.add(tf_deber_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
+            deudores.add(tf_deber_por.getText());
 
-            //deudoSres.add(tf_deber_por.getText());
-            //falta ajustar esto del string.....
-            //String[] deudores_str = split(tf_deber_por.getText());
 
-            //for (String subString : deudores_str) {
-
-            //  deudores.add(new User(subString, "", "usuario"));
-            //}
-
-            //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
             transaccion = new Transaccion(grupo.getNombre(), tf_nombre_transaccion.getText(), tf_descrip_trans.getText(),date_fecha_transaccion.getValue().toString() ,Double.parseDouble(tf_cantidad.getText())
-                    , pagadores.get(0), deudores.get(0) , usuario);
+                    , pagadores.get(0), deudores.get(0) , usuario, "NOT_YET");
 
 
-            //Usa el método de Transaccion.java para pasar a String los parametros relevantes y devolverlos en una cadena que pinta el listview
             list_transacciones.getItems().add(transaccion.toString());
             transacciones_almacenadas.add(transaccion);
             grupo.setTransaccion(transaccion);
@@ -164,8 +154,6 @@ public class TransaccionController extends MainPanelController {
         }
     }
 
-
-    //SI SE PULSA SUPRIMIR, ELIMINA EL ITEM DE LA LISTA INTRODUCIDA
     @FXML
     protected void onEliminarTransaccionSUPR(KeyEvent event) throws SQLException {
 
@@ -186,7 +174,7 @@ public class TransaccionController extends MainPanelController {
                 list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
                 //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
+                //cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
                 lb_cantidad.setText(cantidad + " €");
                 transacciones_almacenadas.remove(idx_eliminar);
                 grupo.removeTransaccion(idx_eliminar);
@@ -221,12 +209,7 @@ public class TransaccionController extends MainPanelController {
             //cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
             lb_cantidad.setText(cantidad + " €");
             transacciones_almacenadas.remove(idx_eliminar);
-            grupo.removeTransaccion(idx_eliminar);
-
-
-
         }
-
     }
 
     @FXML
