@@ -12,6 +12,8 @@ public class Main extends Application {
     public static String name() {
         String name = "BillPaid";
         return name;
+
+
     }
 
     public static void main(String[] args) {

@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class TransaccionController extends MainPanelController {
     private Grupo grupo;
     private Transaccion transaccion;
     Window window;
-    private User usuario;
+    private String usuario = LoginController.usuario_login;
     private ArrayList<Transaccion> transacciones_almacenadas;
     private ArrayList<User> deudores = new ArrayList<>();
     @FXML
@@ -69,16 +70,10 @@ public class TransaccionController extends MainPanelController {
             cantidad += grupo.getTransacciones().get(i).getCantidad();
             lb_cantidad.setText(Double.toString(cantidad) + " €");
         }
-
-        UserHolder hol = UserHolder.getInstance();
-        usuario = hol.getUsuario();
-
-        if(usuario.getUsername().equals("admin"))usuario.setRole("PREMIUM");
-
     }
 
     @FXML
-    protected void onCrearTransaccionButtonClick() {
+    protected void onCrearTransaccionButtonClick() throws SQLException {
         if (!(tf_nombre_transaccion.getText().isBlank() || tf_cantidad.getText().isBlank() || tf_pagador_por.getText().isBlank() || tf_deber_por.getText().isBlank())) {
             ArrayList<String> pagadores = new ArrayList<>();
             pagadores.add(tf_pagador_por.getText()); //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
@@ -105,6 +100,24 @@ public class TransaccionController extends MainPanelController {
             transacciones_almacenadas.add(transaccion);
             grupo.setTransaccion(transaccion);
 
+
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            );
+
+            String consulta = "INSERT INTO Transacciones (nombre, descripcion, fecha, cantidad_a_pagar, id_usuario_pagador, id_usuario_deudor, id_username_creador)"+
+                    "VALUES (?,?,?,?,?,?,?);";
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            statement.setString(1, transaccion.getNombre());
+            statement.setString(2, transaccion.getDescripcion());
+            statement.setString(3, transaccion.getFecha());
+            statement.setString(4, String.valueOf(transaccion.getCantidad()));
+            statement.setString(5, String.valueOf(transaccion.getId_pagadores().get(0)));
+            statement.setString(6, String.valueOf(transaccion.getId_deudores().get(0)));
+            statement.setString(7, usuario.toString());
+            ResultSet resultSet = statement.executeQuery();
+
             System.out.println("Se ha añadido 1 transaccion");
 
             //suma la cantidad de cada transaccion introducida y actualiza el indicador
@@ -118,12 +131,22 @@ public class TransaccionController extends MainPanelController {
 
     //SI SE PULSA SUPRIMIR, ELIMINA EL ITEM DE LA LISTA INTRODUCIDA
     @FXML
-    protected void onEliminarTransaccionSUPR(KeyEvent event) {
+    protected void onEliminarTransaccionSUPR(KeyEvent event) throws SQLException {
 
 
         if (event.getCode() == KeyCode.DELETE) {
             int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
             if (idx_eliminar >= 0) {
+                Connection connection = DriverManager.getConnection(
+                        "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                        "admin", "Proyecto48"
+                );
+
+                String consulta = "DELETE FROM Transacciones WHERE nombre = ?";
+                PreparedStatement statement = connection.prepareStatement(consulta);
+                statement.setString(1, String.valueOf(transacciones_almacenadas.get(idx_eliminar).getNombre()));
+                ResultSet resultSet = statement.executeQuery();
+
                 list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
                 //Actualiza la cantidad mostrada y elimina el objeto almacenado
@@ -137,13 +160,25 @@ public class TransaccionController extends MainPanelController {
     }
 
     @FXML
-    protected void onEliminarTransaccionClick() {
+    protected void onEliminarTransaccionClick() throws SQLException {
         int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
         System.out.println(list_transacciones.getItems().toString());
         System.out.println(idx_eliminar);
 
 
         if (idx_eliminar >= 0) {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            );
+
+            String consulta = "DELETE FROM Transacciones WHERE nombre = ? and descripcion=?";
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            statement.setString(1, transacciones_almacenadas.get(idx_eliminar).getNombre());
+            statement.setString(2, transacciones_almacenadas.get(idx_eliminar).getDescripcion());
+            ResultSet resultSet = statement.executeQuery();
+
+
             list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
             //Actualiza la cantidad mostrada y elimina el objeto almacenado
@@ -151,6 +186,9 @@ public class TransaccionController extends MainPanelController {
             lb_cantidad.setText(Double.toString(cantidad) + " €");
             transacciones_almacenadas.remove(idx_eliminar);
             grupo.removeTransaccion(idx_eliminar);
+
+
+
         }
 
     }
@@ -196,7 +234,7 @@ public class TransaccionController extends MainPanelController {
     }
 
     @FXML
-    protected void onGrabarModificacionClick() {
+    protected void onGrabarModificacionClick() throws SQLException {
         onEliminarTransaccionClick();
         onCrearTransaccionButtonClick();
 
@@ -217,7 +255,7 @@ public class TransaccionController extends MainPanelController {
 
     @FXML
     protected void onPremium(){
-        if (!usuario.getRole().equals("PREMIUM")){
+        /*if (!usuario.getRole().equals("PREMIUM")){
             window = bt_premium.getScene().getWindow();
 
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
@@ -226,7 +264,7 @@ public class TransaccionController extends MainPanelController {
         }else {
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "ATENCIÓN",
                     "Esta funcionalidad estará disponible muy pronto!");
-        }
+        }*/
     }
 }
 

@@ -32,6 +32,7 @@ public class LoginController {
 
     Window window;
 
+    public static String usuario_login="nonamed";
     private User usuario;
     @FXML
     private TextField username;
@@ -65,6 +66,7 @@ public class LoginController {
             if(resultSet.next()) {
 
                     System.out.println("Login correcto");
+                usuario_login=Username;
                 Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
