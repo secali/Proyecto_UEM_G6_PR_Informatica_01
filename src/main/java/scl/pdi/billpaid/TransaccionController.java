@@ -9,6 +9,7 @@ import scl.pdi.billpaid.helper.AlertHelper;
 import scl.pdi.billpaid.holders.GrupoHolder;
 import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
+import scl.pdi.billpaid.modelo.Sesion;
 import scl.pdi.billpaid.modelo.Transaccion;
 import scl.pdi.billpaid.modelo.User;
 
@@ -27,9 +28,9 @@ public class TransaccionController extends MainPanelController {
     private Grupo grupo;
     private Transaccion transaccion;
     Window window;
-    private String usuario = LoginController.usuario_login;
+    private final String usuario = Sesion.getUserId();
     private ArrayList<Transaccion> transacciones_almacenadas;
-    private ArrayList<User> deudores = new ArrayList<>();
+    private final ArrayList<User> deudores = new ArrayList<>();
     @FXML
     private Label lb_cantidad, lb_grupos;
     @FXML
@@ -61,14 +62,49 @@ public class TransaccionController extends MainPanelController {
 
         transacciones_almacenadas = new ArrayList<>();
 
-        grupo.cargarDemoTransacciones();
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            );
+
+            String consulta = "SELECT * FROM Transacciones WHERE id_username_creador = ?";
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            statement.setString(1, usuario);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String nombre = resultSet.getString(2);
+                String descripcion = resultSet.getString(3);
+                String fecha = resultSet.getString(4);
+                String cantidad = resultSet.getString(5);
+                String id_username_pagador =  resultSet.getString(6);
+                String id_username_deudor =  resultSet.getString(7);
+                String username_creador = resultSet.getString(8);
+                transaccion =  new Transaccion(id,nombre,descripcion,fecha,Double.parseDouble(cantidad),id_username_pagador,id_username_deudor,username_creador);
+                transacciones_almacenadas.add(transaccion);
+
+                list_transacciones.getItems().add(transaccion.toString());
+
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
         for (int i = 0; i < grupo.getTransacciones().size(); i++) {
-            list_transacciones.getItems().add(grupo.getTransacciones().get(i).transaccion2List());
+            list_transacciones.getItems().add(grupo.getTransacciones().get(i).toString());
             transacciones_almacenadas.add(grupo.getTransacciones().get(i));
 
-            cantidad += grupo.getTransacciones().get(i).getCantidad();
-            lb_cantidad.setText(Double.toString(cantidad) + " €");
+            cantidad += grupo.getTransacciones().get(i).getImporte();
+            lb_cantidad.setText(cantidad + " €");
         }
     }
 
@@ -91,12 +127,12 @@ public class TransaccionController extends MainPanelController {
             //}
 
             //HABRIA QUE SEPARAR POR COMAS Y METERLOS EN EL ARRAYLIST
-            transaccion = new Transaccion(grupo.getNombre(), tf_nombre_transaccion.getText(), tf_descrip_trans.getText(), Double.parseDouble(tf_cantidad.getText()),
-                    "normal", pagadores, deudores, date_fecha_transaccion.getValue().toString());
+            transaccion = new Transaccion(grupo.getNombre(), tf_nombre_transaccion.getText(), tf_descrip_trans.getText(),date_fecha_transaccion.getValue().toString() ,Double.parseDouble(tf_cantidad.getText())
+                    , pagadores.get(0), deudores.get(0) , usuario);
 
 
             //Usa el método de Transaccion.java para pasar a String los parametros relevantes y devolverlos en una cadena que pinta el listview
-            list_transacciones.getItems().add(transaccion.transaccion2List());
+            list_transacciones.getItems().add(transaccion.toString());
             transacciones_almacenadas.add(transaccion);
             grupo.setTransaccion(transaccion);
 
@@ -112,17 +148,17 @@ public class TransaccionController extends MainPanelController {
             statement.setString(1, transaccion.getNombre());
             statement.setString(2, transaccion.getDescripcion());
             statement.setString(3, transaccion.getFecha());
-            statement.setString(4, String.valueOf(transaccion.getCantidad()));
-            statement.setString(5, String.valueOf(transaccion.getId_pagadores().get(0)));
-            statement.setString(6, String.valueOf(transaccion.getId_deudores().get(0)));
-            statement.setString(7, usuario.toString());
+            statement.setString(4, String.valueOf(transaccion.getImporte()));
+            statement.setString(5, transaccion.getId_pagador());
+            statement.setString(6, transaccion.getId_deudor());
+            statement.setString(7, usuario);
             ResultSet resultSet = statement.executeQuery();
 
             System.out.println("Se ha añadido 1 transaccion");
 
             //suma la cantidad de cada transaccion introducida y actualiza el indicador
-            cantidad += transaccion.getCantidad();
-            lb_cantidad.setText(Double.toString(cantidad) + " €");
+            cantidad += transaccion.getImporte();
+            lb_cantidad.setText(cantidad + " €");
 
             cleanForm();
         }
@@ -150,8 +186,8 @@ public class TransaccionController extends MainPanelController {
                 list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
                 //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                cantidad -= grupo.getTransacciones().get(idx_eliminar).getCantidad();
-                lb_cantidad.setText(Double.toString(cantidad) + " €");
+                cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
+                lb_cantidad.setText(cantidad + " €");
                 transacciones_almacenadas.remove(idx_eliminar);
                 grupo.removeTransaccion(idx_eliminar);
             }
@@ -182,8 +218,8 @@ public class TransaccionController extends MainPanelController {
             list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
             //Actualiza la cantidad mostrada y elimina el objeto almacenado
-            cantidad -= grupo.getTransacciones().get(idx_eliminar).getCantidad();
-            lb_cantidad.setText(Double.toString(cantidad) + " €");
+            //cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
+            lb_cantidad.setText(cantidad + " €");
             transacciones_almacenadas.remove(idx_eliminar);
             grupo.removeTransaccion(idx_eliminar);
 
@@ -218,15 +254,15 @@ public class TransaccionController extends MainPanelController {
 
             tf_nombre_transaccion.setText(t.getNombre());
             tf_descrip_trans.setText(t.getDescripcion());
-            tf_cantidad.setText(String.valueOf(t.getCantidad()));
+            tf_cantidad.setText(String.valueOf(t.getImporte()));
 
             DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate localDate = LocalDate.parse(t.getFecha(), customDateTimeFormatter);
 
             date_fecha_transaccion.setValue(localDate);
 
-            tf_pagador_por.setText(t.getId_pagadores().toString());
-            tf_deber_por.setText(t.getId_deudores().toString());
+            tf_pagador_por.setText(t.getId_pagador());
+            tf_deber_por.setText(t.getId_deudor());
 
             bt_modificar.setVisible(true);
             bt_crear.setVisible(false);

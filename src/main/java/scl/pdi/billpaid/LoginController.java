@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import scl.pdi.billpaid.helper.AlertHelper;
 
+import scl.pdi.billpaid.modelo.Sesion;
 import scl.pdi.billpaid.modelo.User;
 
 import java.io.IOException;
@@ -27,8 +28,6 @@ public class LoginController {
 
     Window window;
 
-    public static String usuario_login="nonamed";
-    private User usuario;
     @FXML
     private TextField username;
     @FXML
@@ -59,6 +58,7 @@ public class LoginController {
             if(resultSet.next()) {
 
                 System.out.println("Login correcto");
+                Sesion.setUserId(Username);
 
                 Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
                 Stage stage = (Stage) loginButton.getScene().getWindow();

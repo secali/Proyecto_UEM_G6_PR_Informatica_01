@@ -62,23 +62,6 @@ public class Grupo {
         this.CantidadIntegrantes = fechaCreacion;
     }
 
-    public void cargarDemoTransacciones() {
-        ArrayList<String> a = new ArrayList<>();
-        a.add("Sergio");
-        a.add("Pablo");
-        a.add("Maria");
-        ArrayList<String> b = new ArrayList<>();
-        b.add("Jorge");
-        b.add("Antonio");
-        b.add("Isa");
-        b.add("Carmen");
-        transacciones.add(new Transaccion(ID_Grupo, "Cena de tapas", "comida malisima", 45.0, "pago", a.subList(0, 1), b, "2023-01-01"));
-        transacciones.add(new Transaccion(ID_Grupo, "Regalo Miguel", "iphone", 999.0, "pago", a, b.subList(0, 1), "2023-02-01"));
-        transacciones.add(new Transaccion(ID_Grupo, "Gasolina viaje", "300km", 45, "pago", a.subList(1, 2), b, "2023-02-01"));
-
-    }
-
-
     public String listarGrupo() {
         return ID_Grupo + " --------- Nombre del grupo" + Descripcion + " --------- (Click para abrir transacciones)";
     }
