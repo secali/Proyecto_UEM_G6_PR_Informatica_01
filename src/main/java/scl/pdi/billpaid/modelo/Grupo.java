@@ -1,25 +1,30 @@
 package scl.pdi.billpaid.modelo;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.ArrayList;
+
+//@Getter
+//@Setter
+//@ToString
+//@AllArgsConstructor
 
 public class Grupo {
 
     private String ID_Grupo;
     private String Descripcion;
     private double CantidadIntegrantes;
-
     private ArrayList<Transaccion> transacciones;
-
 
     //Constructor para Nombre de grupo, descripcion del grupo, cantidad de integrantes.
     public Grupo(String ID_Grupo, String Descripcion) {
         this.ID_Grupo = ID_Grupo;
         this.Descripcion = Descripcion;
-
         transacciones = new ArrayList<>();
-
     }
-
 
     public ArrayList<Transaccion> getTransacciones() {
         return transacciones;
@@ -40,6 +45,10 @@ public class Grupo {
 
     public String getID_Persona() {
         return ID_Grupo;
+    }
+
+    public String getDescripcion(){
+        return Descripcion;
     }
 
     public void setID_Persona(String ID_Persona) {
@@ -72,6 +81,4 @@ public class Grupo {
                 ", nombre='" + Descripcion + '\''+
                 '}';
     }
-
-
 }

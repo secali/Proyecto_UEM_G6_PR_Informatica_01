@@ -49,48 +49,54 @@ public class CreacionController extends MainPanelController {
         GrupoHolder h = GrupoHolder.getInstance();
         grupo = h.getGrupo();
 
-        /*ListGruposHolder h2 = ListGruposHolder.getInstance();
-        gruposAlmacenados = new ArrayList<>();
-        gruposAlmacenados = h2.getLista_grupos();
-        list_grupos.getItems().addAll(String.valueOf(gruposAlmacenados));*/
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            );
 
+            String consultaSQL = "SELECT * FROM Grupo WHERE id_username = ?";
+            PreparedStatement statement = conexion.prepareStatement(consultaSQL);
+            statement.setString(1, Sesion.getUserId());
+            ResultSet resultset = statement.executeQuery();
+
+            while (resultset.next()) {
+                String id = resultset.getString(1);
+                String username_creador = resultset.getString(2);
+                String nombre = resultset.getString(3);
+                String descripcion = resultset.getString(4);
+
+                list_grupos.getItems().add(grupo.toString());
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     protected void onCrearGrupoButtonClick() throws SQLException {
-
         grupo = new Grupo(tf_nombreGrupo.getText(), tf_descripcionGrupo.getText());
 
-        //Conexion con la Base
         Connection conn = DriverManager.getConnection(
                 "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
                 "admin", "Proyecto48"
         );
-        //Consulta SQL
-        String consulta = "INSERT INTO Grupo(nombre,descripcion,participantes)"
+
+        String consulta = "INSERT INTO Grupo(id_username,nombre,descripcion)"
                 + "VALUES(?,?,?);";
         PreparedStatement statement = conn.prepareStatement(consulta);
-        statement.setString(1, grupo.getNombre());
-        statement.setString(2, grupo.getID_Persona()); //Necesito cambiar el atributo en GRUPO
-        statement.setString(3, String.valueOf(grupo.getCantidadIntegrantes()));
+        statement.setString(1, Sesion.getUserId());
+        statement.setString(2, grupo.getNombre());
+        statement.setString(3, grupo.getDescripcion());
+        ResultSet resultSet = statement.executeQuery();
 
-        int filasInsertadas = statement.executeUpdate();
-        // FilasInsertadas almacenara el numero de filas afectadas por la operacion de insercion
+        System.out.println("Grupo creado correctamente");
 
-        if(filasInsertadas>0){
-            System.out.println("Se ha creado un grupo");
-        }
-
-        //Pintar la lista
         list_grupos.getItems().addAll(grupo.listarGrupo());
         gruposAlmacenados.add(grupo);
 
-        //simula la creacion de un grupo porque el CRUD de grupos no funciona, SINGLETON
-        GrupoHolder holder = GrupoHolder.getInstance();
-        holder.setGrupo(grupo);
-
-        System.out.println("Grupo creado correctamente");
     }
-
 
     @FXML
     protected void onEliminarGrupoClick(KeyEvent accion) throws SQLException {
@@ -134,4 +140,6 @@ public class CreacionController extends MainPanelController {
         stage.setTitle(Main.name());
 
         stage.show();
+    }
+
     }
