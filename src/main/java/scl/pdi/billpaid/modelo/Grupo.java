@@ -18,7 +18,6 @@ public class Grupo {
     private final String nombre;
     private String ID_Grupo;
     private String Descripcion;
-    private int CantidadIntegrantes;
 
     static private ArrayList<Transaccion> transacciones; //Necesito saber si esto lo usa alguien
 

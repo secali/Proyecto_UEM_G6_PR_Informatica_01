@@ -50,13 +50,8 @@ public class TransaccionController extends MainPanelController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        GrupoHolder h = GrupoHolder.getInstance();
-        grupo = h.getGrupo();
-
-        lbGrupos.setText(grupo.getNombre());
-
+        lbGrupos.setText(Sesion.getLatestIdGroup());
         transaccionesAlmacenadas = new ArrayList<>();
-
 
         Connection connection = null;
         try {
@@ -85,23 +80,9 @@ public class TransaccionController extends MainPanelController {
                 listTransacciones.getItems().add(transaccion.toString());
 
                 connection.close();
-
-
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-
-
-
-        for (int i = 0; i < grupo.getTransacciones().size(); i++) {
-            listTransacciones.getItems().add(grupo.getTransacciones().get(i).toString());
-            transaccionesAlmacenadas.add(grupo.getTransacciones().get(i));
-
-            cantidad += grupo.getTransacciones().get(i).getImporte();
-            lbCantidad.setText(cantidad + " €");
         }
     }
 
@@ -114,10 +95,8 @@ public class TransaccionController extends MainPanelController {
             ArrayList<String> deudores = new ArrayList<>();
             deudores.add(tfDeberPor.getText());
 
-
             transaccion = new Transaccion(grupo.getNombre(), tfNombreTransaccion.getText(), tfDescripTrans.getText(), dateFechaTransaccion.getValue().toString() ,Double.parseDouble(tfCantidad.getText())
                     , pagadores.get(0), deudores.get(0) , usuario, "NOT_YET");
-
 
             listTransacciones.getItems().add(transaccion.toString());
             transaccionesAlmacenadas.add(transaccion);
@@ -149,7 +128,6 @@ public class TransaccionController extends MainPanelController {
             lbCantidad.setText(cantidad + " €");
 
             cleanForm();
-
         }
     }
 

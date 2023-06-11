@@ -69,8 +69,8 @@ public class CreacionController extends MainPanelController {
                 String id_username_creador = resultset.getString(2);
                 String nombre = resultset.getString(3);
                 String descripcion = resultset.getString(4);
-             //Mirar esta linea
-             //   grupo = new Grupo(id_grupo,id_username_creador,nombre,descripcion);
+
+                grupo = new Grupo(id_grupo,id_username_creador,nombre,descripcion);
                 gruposAlmacenados.add(grupo);
                 list_grupos.getItems().add(grupo.toString());
 
@@ -87,7 +87,7 @@ public class CreacionController extends MainPanelController {
                 "admin", "Proyecto48"
         );
 
-        String consulta = "INSERT INTO Grupo(id_username,nombre,descripcion)"
+        String consulta = "INSERT INTO Grupo (id_username_creador ,nombre,descripcion)"
                 + "VALUES(?,?,?);";
         PreparedStatement statement = conn.prepareStatement(consulta);
         statement.setString(1, Sesion.getUserId());
@@ -118,8 +118,6 @@ public class CreacionController extends MainPanelController {
 
                 list_grupos.getItems().remove(idx_eliminar); //Elimina la lista.
 
-                //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                cantidad += gruposAlmacenados.get(idx_eliminar).getCantidadIntegrantes();
                 gruposAlmacenados.remove(idx_eliminar);
 
 
