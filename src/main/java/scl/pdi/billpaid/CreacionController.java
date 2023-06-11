@@ -47,9 +47,6 @@ public class CreacionController extends MainPanelController {
     private TextArea tf_cantidadIntegrantes;
 
     public void initialize(URL location, ResourceBundle resources) {
-        GrupoHolder h = GrupoHolder.getInstance();
-        grupo = h.getGrupo();
-        grupo = this.grupo;
         gruposAlmacenados = new ArrayList<>();// guardamos los grupos aqui dentro
 
         Connection conexion = null;
@@ -91,12 +88,11 @@ public class CreacionController extends MainPanelController {
                 + "VALUES(?,?,?);";
         PreparedStatement statement = conn.prepareStatement(consulta);
         statement.setString(1, Sesion.getUserId());
-        statement.setString(2, grupo.getNombre());
-        statement.setString(3, grupo.getDescripcion());
+        statement.setString(2, tf_nombreGrupo.getText());
+        statement.setString(3, tf_descripcionGrupo.getText());
         ResultSet resultSet = statement.executeQuery();
 
-        System.out.println("Grupo creado correctamente");
-
+        grupo = new Grupo(null,Sesion.getUserId(),tf_nombreGrupo.getText(),tf_descripcionGrupo.getText());
         list_grupos.getItems().addAll(grupo.listarGrupo());
         gruposAlmacenados.add(grupo);
     }

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class Grupo {
 
+    private String ID_Grupo;
     private final String id_username_creador;
     private final String nombre;
-    private String ID_Grupo;
     private String Descripcion;
 
     static private ArrayList<Transaccion> transacciones; //Necesito saber si esto lo usa alguien
