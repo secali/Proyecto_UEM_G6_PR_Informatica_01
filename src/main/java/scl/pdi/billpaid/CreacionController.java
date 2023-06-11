@@ -115,11 +115,9 @@ public class CreacionController extends MainPanelController {
                 list_grupos.getItems().remove(idx_eliminar); //Elimina la lista.
 
                 gruposAlmacenados.remove(idx_eliminar);
-
-
             }
         }
-    } // Final de onEliminarGrupoClick
+    }
 
 
     @FXML
@@ -137,5 +135,4 @@ public class CreacionController extends MainPanelController {
 
         stage.show();
     }
-
-    }
+}

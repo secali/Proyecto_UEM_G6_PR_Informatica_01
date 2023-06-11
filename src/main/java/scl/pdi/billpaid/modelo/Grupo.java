@@ -17,7 +17,7 @@ public class Grupo {
     private String ID_Grupo;
     private final String id_username_creador;
     private final String nombre;
-    private String Descripcion;
+    private String descripcion;
 
     static private ArrayList<Transaccion> transacciones; //Necesito saber si esto lo usa alguien
 
@@ -34,7 +34,7 @@ public class Grupo {
         transacciones.remove(index);
     }
     public String listarGrupo() {
-        return ID_Grupo + " --------- Nombre del grupo" + Descripcion + " --------- (Click para abrir transacciones)";
+        return "*NUEVO GRUPO: id_username_creador="+id_username_creador+" nombre="+nombre+ "descripcion="+descripcion;
     }
 
 }
