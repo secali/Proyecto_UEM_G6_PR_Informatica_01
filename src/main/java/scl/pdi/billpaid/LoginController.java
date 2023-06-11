@@ -70,7 +70,7 @@ public class LoginController {
 
                 stage.show();
                 }
-                else AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                else AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
                     "Inicio de sesion fallido");
 
         }

@@ -32,6 +32,10 @@ import java.util.logging.Logger;
 
 
 public class MainPanelController implements Initializable {
+    protected final String  URL_BD = "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3";
+    protected final String USER_BD = "admin";
+    protected final String PASSW_BD = "Proyecto48";
+
     private User usuario;
     private Grupo grupo;
 
@@ -172,7 +176,7 @@ public class MainPanelController implements Initializable {
 
         //simula la creacion de un grupo porque el CRUD de grupos no funciona, SINGLETON
         GrupoHolder holder = GrupoHolder.getInstance();
-        grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante");
+        //grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante");
         System.out.println(grupo);
 
 

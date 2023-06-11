@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Sesion {
+
     private static String userId;
 
     public static String getLatestIdGroup() {

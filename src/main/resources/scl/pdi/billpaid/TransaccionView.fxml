@@ -40,7 +40,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-            <Button fx:id="bt_premium" layoutX="10.0" layoutY="275.0" mnemonicParsing="false" onAction="#onPremium" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Pagar Deudas" textAlignment="JUSTIFY">
+            <Button fx:id="btPremium" layoutX="10.0" layoutY="275.0" mnemonicParsing="false" onAction="#onPremium" prefHeight="30.0" prefWidth="168.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="Pagar Deudas" textAlignment="JUSTIFY">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -84,34 +84,34 @@
                 <AnchorPane maxHeight="600.0" maxWidth="720.0" minHeight="600.0" minWidth="720.0" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="539.0" layoutX="5.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="868.0" />
-                        <Label fx:id="lb_grupos" layoutX="64.0" layoutY="55.0" text="Grupo de Fiesta">
+                        <Label fx:id="lbGrupos" layoutX="64.0" layoutY="55.0" text="Grupo de Fiesta">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lb_cantidad" layoutX="64.0" layoutY="91.0" text="000,00">
+                        <Label fx:id="lbCantidad" layoutX="64.0" layoutY="91.0" text="000,00">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <ListView fx:id="list_transacciones" layoutX="10.0" layoutY="113.0" onKeyPressed="#onEliminarTransaccionSUPR" prefHeight="443.0" prefWidth="858.0" />
+                        <ListView fx:id="listTransacciones" layoutX="10.0" layoutY="113.0" onKeyPressed="#onEliminarTransaccionSUPR" prefHeight="443.0" prefWidth="858.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8e8e8" height="539.0" layoutX="873.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="231.0" />
                         <Label fx:id="lb_transaccion" layoutX="933.0" layoutY="83.0" text="Transacción">
                             <font>
                                 <Font size="24.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="tf_nombre_transaccion" layoutX="887.0" layoutY="141.0" prefHeight="26.0" prefWidth="204.0" promptText="Nombre" />
-                        <TextField fx:id="tf_cantidad" layoutX="889.0" layoutY="228.0" prefHeight="26.0" prefWidth="203.0" promptText="Cantidad" />
-                        <DatePicker fx:id="date_fecha_transaccion" layoutX="890.0" layoutY="253.0" prefHeight="26.0" prefWidth="202.0" promptText="Fecha transacción" />
-                        <TextField fx:id="tf_pagador_por" layoutX="890.0" layoutY="278.0" prefHeight="26.0" prefWidth="201.0" promptText="Pagado por" />
-                        <TextField fx:id="tf_deber_por" layoutX="890.0" layoutY="303.0" prefHeight="26.0" prefWidth="201.0" promptText="A deber por" />
-                        <Button fx:id="bt_crear" layoutX="934.0" layoutY="532.0" mnemonicParsing="false" onAction="#onCrearTransaccionButtonClick" text="Crear transacción" />
+                        <TextField fx:id="tfNombreTransaccion" layoutX="887.0" layoutY="141.0" prefHeight="26.0" prefWidth="204.0" promptText="Nombre" />
+                        <TextField fx:id="tfCantidad" layoutX="889.0" layoutY="228.0" prefHeight="26.0" prefWidth="203.0" promptText="Cantidad" />
+                        <DatePicker fx:id="dateFechaTransaccion" layoutX="890.0" layoutY="253.0" prefHeight="26.0" prefWidth="202.0" promptText="Fecha transacción" />
+                        <TextField fx:id="tfPagadorPor" layoutX="890.0" layoutY="278.0" prefHeight="26.0" prefWidth="201.0" promptText="Pagado por" />
+                        <TextField fx:id="tfDeberPor" layoutX="890.0" layoutY="303.0" prefHeight="26.0" prefWidth="201.0" promptText="A deber por" />
+                        <Button fx:id="btCrear" layoutX="934.0" layoutY="532.0" mnemonicParsing="false" onAction="#onCrearTransaccionButtonClick" text="Crear transacción" />
                         <Button fx:id="bt_eliminar" layoutX="805.0" layoutY="88.0" mnemonicParsing="false" onAction="#onEliminarTransaccionClick" text="Eliminar" />
                         <Button fx:id="bt_exportar" layoutX="657.0" layoutY="88.0" mnemonicParsing="false" onAction="#onExportarTransaccionesClick" text="Exportar Transacciones" />
                         <Button fx:id="bt_modoMod" layoutX="585.0" layoutY="88.0" mnemonicParsing="false" onAction="#onModificarTransaccionClick" text="Modificar" />
-                        <TextField fx:id="tf_descrip_trans" layoutX="887.0" layoutY="167.0" prefHeight="62.0" prefWidth="204.0" promptText="Descripción" />
-                        <Button fx:id="bt_modificar" layoutX="925.0" layoutY="506.0" mnemonicParsing="false" onAction="#onGrabarModificacionClick" text="Confirmar Modificación" visible="false" />
+                        <TextField fx:id="tfDescripTrans" layoutX="887.0" layoutY="167.0" prefHeight="62.0" prefWidth="204.0" promptText="Descripción" />
+                        <Button fx:id="btModificar" layoutX="925.0" layoutY="506.0" mnemonicParsing="false" onAction="#onGrabarModificacionClick" text="Confirmar Modificación" visible="false" />
                     </children>
                 </AnchorPane>
 

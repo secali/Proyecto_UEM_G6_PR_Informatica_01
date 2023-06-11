@@ -4,14 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Window;
-import scl.pdi.billpaid.helper.AlertHelper;
 import scl.pdi.billpaid.holders.GrupoHolder;
-import scl.pdi.billpaid.holders.UserHolder;
 import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.Sesion;
 import scl.pdi.billpaid.modelo.Transaccion;
-import scl.pdi.billpaid.modelo.User;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -27,30 +23,29 @@ public class TransaccionController extends MainPanelController {
 
     private Grupo grupo;
     private Transaccion transaccion;
-    Window window;
     private final String usuario = Sesion.getUserId();
-    private ArrayList<Transaccion> transacciones_almacenadas;
+    private ArrayList<Transaccion> transaccionesAlmacenadas;
 
     @FXML
-    private Label lb_cantidad, lb_grupos;
+    private Label lbCantidad, lbGrupos;
     @FXML
-    private ListView<String> list_transacciones;
+    private ListView<String> listTransacciones;
     @FXML
-    private TextField tf_nombre_transaccion;
+    private TextField tfNombreTransaccion;
     @FXML
-    private TextField tf_descrip_trans;
+    private TextField tfDescripTrans;
     @FXML
-    private TextField tf_cantidad;
+    private TextField tfCantidad;
     private double cantidad = 0.00;
     @FXML
-    private DatePicker date_fecha_transaccion;
+    private DatePicker dateFechaTransaccion;
     @FXML
-    private TextField tf_pagador_por;
+    private TextField tfPagadorPor;
     @FXML
-    private TextField tf_deber_por;
+    private TextField tfDeberPor;
 
     @FXML
-    private Button home, bt_crear, bt_modificar, bt_premium;
+    private Button btCrear, btModificar, btPremium;
 
 
     @Override
@@ -58,16 +53,16 @@ public class TransaccionController extends MainPanelController {
         GrupoHolder h = GrupoHolder.getInstance();
         grupo = h.getGrupo();
 
-        lb_grupos.setText(grupo.getNombre());
+        lbGrupos.setText(grupo.getNombre());
 
-        transacciones_almacenadas = new ArrayList<>();
+        transaccionesAlmacenadas = new ArrayList<>();
 
 
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                    "admin", "Proyecto48"
+                    URL_BD,
+                    USER_BD, PASSW_BD
             );
 
             String consulta = "SELECT * FROM Transacciones WHERE id_username_creador = ?";
@@ -85,9 +80,11 @@ public class TransaccionController extends MainPanelController {
                 String id_username_deudor =  resultSet.getString(7);
                 String username_creador = resultSet.getString(8);
                 transaccion =  new Transaccion("ID_DEL_GRUPO",nombre,descripcion,fecha,Double.parseDouble(cantidad),id_username_pagador,id_username_deudor,username_creador, id);
-                transacciones_almacenadas.add(transaccion);
+                transaccionesAlmacenadas.add(transaccion);
 
-                list_transacciones.getItems().add(transaccion.toString());
+                listTransacciones.getItems().add(transaccion.toString());
+
+                connection.close();
 
 
             }
@@ -100,57 +97,59 @@ public class TransaccionController extends MainPanelController {
 
 
         for (int i = 0; i < grupo.getTransacciones().size(); i++) {
-            list_transacciones.getItems().add(grupo.getTransacciones().get(i).toString());
-            transacciones_almacenadas.add(grupo.getTransacciones().get(i));
+            listTransacciones.getItems().add(grupo.getTransacciones().get(i).toString());
+            transaccionesAlmacenadas.add(grupo.getTransacciones().get(i));
 
             cantidad += grupo.getTransacciones().get(i).getImporte();
-            lb_cantidad.setText(cantidad + " €");
+            lbCantidad.setText(cantidad + " €");
         }
     }
 
     @FXML
-    protected void onCrearTransaccionButtonClick() throws SQLException {
-        if (!(tf_nombre_transaccion.getText().isBlank() || tf_cantidad.getText().isBlank() || tf_pagador_por.getText().isBlank() || tf_deber_por.getText().isBlank())) {
+    protected void onCrearTransaccionButtonClick()  {
+        if (!(tfNombreTransaccion.getText().isBlank() || tfCantidad.getText().isBlank() || tfPagadorPor.getText().isBlank() || tfDeberPor.getText().isBlank())) {
             ArrayList<String> pagadores = new ArrayList<>();
-            pagadores.add(tf_pagador_por.getText());
+            pagadores.add(tfPagadorPor.getText());
 
             ArrayList<String> deudores = new ArrayList<>();
-            deudores.add(tf_deber_por.getText());
+            deudores.add(tfDeberPor.getText());
 
 
-            transaccion = new Transaccion(grupo.getNombre(), tf_nombre_transaccion.getText(), tf_descrip_trans.getText(),date_fecha_transaccion.getValue().toString() ,Double.parseDouble(tf_cantidad.getText())
+            transaccion = new Transaccion(grupo.getNombre(), tfNombreTransaccion.getText(), tfDescripTrans.getText(), dateFechaTransaccion.getValue().toString() ,Double.parseDouble(tfCantidad.getText())
                     , pagadores.get(0), deudores.get(0) , usuario, "NOT_YET");
 
 
-            list_transacciones.getItems().add(transaccion.toString());
-            transacciones_almacenadas.add(transaccion);
+            listTransacciones.getItems().add(transaccion.toString());
+            transaccionesAlmacenadas.add(transaccion);
             grupo.setTransaccion(transaccion);
 
+            try {
+                Connection connection = DriverManager.getConnection(
+                        URL_BD, USER_BD, PASSW_BD
+                );
 
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                    "admin", "Proyecto48"
-            );
+                String consulta = "INSERT INTO Transacciones (nombre, descripcion, fecha, cantidad_a_pagar, id_usuario_pagador, id_usuario_deudor, id_username_creador)" +
+                        "VALUES (?,?,?,?,?,?,?);";
+                PreparedStatement statement = connection.prepareStatement(consulta);
+                statement.setString(1, transaccion.getNombre());
+                statement.setString(2, transaccion.getDescripcion());
+                statement.setString(3, transaccion.getFecha());
+                statement.setString(4, String.valueOf(transaccion.getImporte()));
+                statement.setString(5, transaccion.getId_pagador());
+                statement.setString(6, transaccion.getId_deudor());
+                statement.setString(7, usuario);
+                ResultSet resultSet = statement.executeQuery();
 
-            String consulta = "INSERT INTO Transacciones (nombre, descripcion, fecha, cantidad_a_pagar, id_usuario_pagador, id_usuario_deudor, id_username_creador)"+
-                    "VALUES (?,?,?,?,?,?,?);";
-            PreparedStatement statement = connection.prepareStatement(consulta);
-            statement.setString(1, transaccion.getNombre());
-            statement.setString(2, transaccion.getDescripcion());
-            statement.setString(3, transaccion.getFecha());
-            statement.setString(4, String.valueOf(transaccion.getImporte()));
-            statement.setString(5, transaccion.getId_pagador());
-            statement.setString(6, transaccion.getId_deudor());
-            statement.setString(7, usuario);
-            ResultSet resultSet = statement.executeQuery();
+                connection.close();
 
-            System.out.println("Se ha añadido 1 transaccion");
-
-            //suma la cantidad de cada transaccion introducida y actualiza el indicador
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
             cantidad += transaccion.getImporte();
-            lb_cantidad.setText(cantidad + " €");
+            lbCantidad.setText(cantidad + " €");
 
             cleanForm();
+
         }
     }
 
@@ -159,56 +158,54 @@ public class TransaccionController extends MainPanelController {
 
 
         if (event.getCode() == KeyCode.DELETE) {
-            int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
-            if (idx_eliminar >= 0) {
+            int idxEliminar = listTransacciones.getSelectionModel().getSelectedIndex();
+            if (idxEliminar >= 0) {
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                        "admin", "Proyecto48"
+                        URL_BD, USER_BD, PASSW_BD
                 );
 
                 String consulta = "DELETE FROM Transacciones WHERE nombre = ?";
                 PreparedStatement statement = connection.prepareStatement(consulta);
-                statement.setString(1, String.valueOf(transacciones_almacenadas.get(idx_eliminar).getNombre()));
+                statement.setString(1, String.valueOf(transaccionesAlmacenadas.get(idxEliminar).getNombre()));
                 ResultSet resultSet = statement.executeQuery();
 
-                list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
+                listTransacciones.getItems().remove(idxEliminar);  //elimina de la lista
 
                 //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                //cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
-                lb_cantidad.setText(cantidad + " €");
-                transacciones_almacenadas.remove(idx_eliminar);
-                grupo.removeTransaccion(idx_eliminar);
+                //cantidad -= grupo.getTransacciones().get(idxEliminar).getImporte();
+                lbCantidad.setText(cantidad + " €");
+                transaccionesAlmacenadas.remove(idxEliminar);
+                grupo.removeTransaccion(idxEliminar);
             }
         }
 
     }
 
     @FXML
-    protected void onEliminarTransaccionClick() throws SQLException {
-        int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
-        System.out.println(list_transacciones.getItems().toString());
-        System.out.println(idx_eliminar);
-
+    protected void onEliminarTransaccionClick()  {
+        int idx_eliminar = listTransacciones.getSelectionModel().getSelectedIndex();
 
         if (idx_eliminar >= 0) {
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                    "admin", "Proyecto48"
-            );
 
-            String consulta = "DELETE FROM Transacciones WHERE nombre = ? and descripcion=?";
-            PreparedStatement statement = connection.prepareStatement(consulta);
-            statement.setString(1, transacciones_almacenadas.get(idx_eliminar).getNombre());
-            statement.setString(2, transacciones_almacenadas.get(idx_eliminar).getDescripcion());
-            ResultSet resultSet = statement.executeQuery();
+            try {
+                Connection connection = DriverManager.getConnection(
+                        URL_BD,
+                        USER_BD, PASSW_BD
+                );
 
+                String consulta = "DELETE FROM Transacciones WHERE nombre = ? and descripcion=?";
+                PreparedStatement statement = connection.prepareStatement(consulta);
+                statement.setString(1, transaccionesAlmacenadas.get(idx_eliminar).getNombre());
+                statement.setString(2, transaccionesAlmacenadas.get(idx_eliminar).getDescripcion());
+                ResultSet resultSet = statement.executeQuery();
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
 
-            list_transacciones.getItems().remove(idx_eliminar);  //elimina de la lista
+            listTransacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
-            //Actualiza la cantidad mostrada y elimina el objeto almacenado
-            //cantidad -= grupo.getTransacciones().get(idx_eliminar).getImporte();
-            lb_cantidad.setText(cantidad + " €");
-            transacciones_almacenadas.remove(idx_eliminar);
+            lbCantidad.setText(cantidad + " €");
+            transaccionesAlmacenadas.remove(idx_eliminar);
         }
     }
 
@@ -217,7 +214,7 @@ public class TransaccionController extends MainPanelController {
         try {
             FileWriter writer = new FileWriter("transacciones_exportadas.txt");
 
-            writer.write(list_transacciones.getItems().toString());
+            writer.write(listTransacciones.getItems().toString());
             writer.write(System.lineSeparator());
             writer.close();
 
@@ -231,44 +228,44 @@ public class TransaccionController extends MainPanelController {
 
     @FXML
     protected void onModificarTransaccionClick() {
-        int idx_eliminar = list_transacciones.getSelectionModel().getSelectedIndex();
+        int idx_eliminar = listTransacciones.getSelectionModel().getSelectedIndex();
         if (idx_eliminar >= 0) {
-            Transaccion t = transacciones_almacenadas.get(idx_eliminar);
+            Transaccion t = transaccionesAlmacenadas.get(idx_eliminar);
 
-            tf_nombre_transaccion.setText(t.getNombre());
-            tf_descrip_trans.setText(t.getDescripcion());
-            tf_cantidad.setText(String.valueOf(t.getImporte()));
+            tfNombreTransaccion.setText(t.getNombre());
+            tfDescripTrans.setText(t.getDescripcion());
+            tfCantidad.setText(String.valueOf(t.getImporte()));
 
             DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate localDate = LocalDate.parse(t.getFecha(), customDateTimeFormatter);
 
-            date_fecha_transaccion.setValue(localDate);
+            dateFechaTransaccion.setValue(localDate);
 
-            tf_pagador_por.setText(t.getId_pagador());
-            tf_deber_por.setText(t.getId_deudor());
+            tfPagadorPor.setText(t.getId_pagador());
+            tfDeberPor.setText(t.getId_deudor());
 
-            bt_modificar.setVisible(true);
-            bt_crear.setVisible(false);
+            btModificar.setVisible(true);
+            btCrear.setVisible(false);
         }
     }
 
     @FXML
-    protected void onGrabarModificacionClick() throws SQLException {
+    protected void onGrabarModificacionClick() {
         onEliminarTransaccionClick();
         onCrearTransaccionButtonClick();
 
-        bt_modificar.setVisible(false);
-        bt_crear.setVisible(true);
+        btModificar.setVisible(false);
+        btCrear.setVisible(true);
     }
 
 
     private void cleanForm() {
-        tf_nombre_transaccion.clear();
-        tf_descrip_trans.clear();
-        tf_cantidad.clear();
-        tf_pagador_por.clear();
-        tf_deber_por.clear();
-        date_fecha_transaccion.getEditor().clear();
+        tfNombreTransaccion.clear();
+        tfDescripTrans.clear();
+        tfCantidad.clear();
+        tfPagadorPor.clear();
+        tfDeberPor.clear();
+        dateFechaTransaccion.getEditor().clear();
     }
 
 
