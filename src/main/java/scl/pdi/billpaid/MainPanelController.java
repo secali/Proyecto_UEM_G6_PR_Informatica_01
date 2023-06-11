@@ -6,13 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+import java.util.function.Supplier;
+import java.util.logging.Logger;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -24,17 +23,17 @@ import scl.pdi.billpaid.modelo.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
+
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 public class MainPanelController implements Initializable {
-    protected final String  URL_BD = "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3";
-    protected final String USER_BD = "admin";
-    protected final String PASSW_BD = "Proyecto48";
+    Logger logger = Logger.getLogger(getClass().getName());
+    protected static final String  URL_BD = "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3";
+    protected static final String USER_BD = "admin";
+    protected static final String PASSW_BD = "Proyecto48";
 
     private User usuario;
     private Grupo grupo;
@@ -43,52 +42,28 @@ public class MainPanelController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
-
     @FXML
-    private ImageView img_grupo;
-    @FXML
-    private AnchorPane perfil_menu;
-
-    private List<Button> menus;
-
-    @FXML
-    private AreaChart<?, ?> chartPurchase;
-
-    @FXML
-    private AreaChart<?, ?> chartSale;
-
-    @FXML
-    private LineChart<?, ?> chartReceipt;
+    private AnchorPane perfilMenu;
 
 
     @FXML
-    private Label perfil_user, ok, lb_premium;
+    private Label perfilUser;
+    @FXML
+    private Label ok;
+    @FXML
+    private Label lbpremium;
 
     @FXML
-    private PasswordField field_pass, field_newpass;
+    private PasswordField fieldPass;
+    @FXML
+    private PasswordField fieldNewpass;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Este método se utiliza para realizar inicializaciones adicionales después de cargar el archivo FXML.
+        // En este caso, no se necesita ninguna inicialización adicional, por lo que el método está vacío.
 
     }
-
-    private void changeButtonBackground(ActionEvent e) {
-        Iterator<Button> iteratorMenus = menus.iterator();
-
-        while (iteratorMenus.hasNext()) {
-            Button clickedButton = (Button) e.getSource();
-            Button OtherButton = iteratorMenus.next();
-            if (clickedButton == OtherButton) {
-                clickedButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#2b2a26;");
-            } else {
-                if (OtherButton != null) {
-                    OtherButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#404040;");
-                }
-            }
-        }
-
-    }
-
 
     @FXML
     private void clear() {
@@ -174,10 +149,10 @@ public class MainPanelController implements Initializable {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.close();
 
-        //simula la creacion de un grupo porque el CRUD de grupos no funciona, SINGLETON
+
         GrupoHolder holder = GrupoHolder.getInstance();
-        //grupo = new Grupo("Fiesta de Cumpleaños", "Tarta y cena en restaurante");
-        System.out.println(grupo);
+
+        logger.info((Supplier<String>) grupo);
 
 
         holder.setGrupo(grupo);
@@ -195,37 +170,37 @@ public class MainPanelController implements Initializable {
     }
 
     @FXML
-    private void loadPerfil() throws IOException {
+    private void loadPerfil() {
         UserHolder h = UserHolder.getInstance();
         usuario = h.getUsuario();
-        System.out.println(usuario.toString());
-
-        perfil_user.setText(usuario.getUsername());
-
-        if (usuario.getUsername().equals("admin")) lb_premium.setText("PREMIUM");
-        else lb_premium.setText(usuario.getRole());
 
 
+        perfilUser.setText(usuario.getUsername());
+
+        if (usuario.getUsername().equals("admin")) lbpremium.setText("PREMIUM");
+        else lbpremium.setText(usuario.getRole());
 
 
-        if (perfil_menu.isVisible())
-            perfil_menu.setVisible(false);
+
+
+        if (perfilMenu.isVisible())
+            perfilMenu.setVisible(false);
         else {
-            perfil_menu.setVisible(true);
+            perfilMenu.setVisible(true);
             ok.setText("");
         }
     }
 
     @FXML
-    private void onCambiarpass() throws IOException {
-        if (field_pass.getText().equals(usuario.getPassword())) {
-            usuario.setPassword(field_newpass.getText());
+    private void onCambiarpass() {
+        if (fieldPass.getText().equals(usuario.getPassword())) {
+            usuario.setPassword(fieldNewpass.getText());
 
             ok.setText("Cambiada!");
         } else ok.setText("Error!");
 
-        field_pass.clear();
-        field_newpass.clear();
-        ;
+        fieldPass.clear();
+        fieldNewpass.clear();
+
     }
 }

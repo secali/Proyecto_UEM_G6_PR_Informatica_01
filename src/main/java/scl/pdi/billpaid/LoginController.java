@@ -1,5 +1,6 @@
 package scl.pdi.billpaid;
 
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -13,7 +14,7 @@ import javafx.stage.Window;
 import scl.pdi.billpaid.helper.AlertHelper;
 
 import scl.pdi.billpaid.modelo.Sesion;
-import scl.pdi.billpaid.modelo.User;
+
 
 import java.io.IOException;
 
@@ -37,43 +38,44 @@ public class LoginController {
 
 
     @FXML
-    public void login() throws Exception {
+    public void login() {
+        String usr = this.username.getText();
+        String pssw = this.password.getText();
+        Logger logger = Logger.getLogger(getClass().getName());
 
-            String Username = username.getText();
-            String Password = password.getText();
-
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                    "admin", "Proyecto48"
-            );
-
+        try (Connection connection = DriverManager.getConnection(
+                "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                "admin", "Proyecto48"
+        )) {
             String consulta = "SELECT * FROM Usuario WHERE username = ? AND passw = ?";
-            PreparedStatement statement = connection.prepareStatement(consulta);
+            try (PreparedStatement statement = connection.prepareStatement(consulta)) {
+                statement.setString(1, usr);
+                statement.setString(2, pssw);
 
-            statement.setString(1, Username);
-            statement.setString(2, Password);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        logger.info("Login correcto");
+                        Sesion.setUserId(usr);
 
-            ResultSet resultSet = statement.executeQuery();
+                        Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
+                        Stage stage = (Stage) loginButton.getScene().getWindow();
+                        stage.close();
+                        Scene scene = new Scene(root);
 
-            if(resultSet.next()) {
+                        stage.setScene(scene);
+                        stage.setTitle(Main.name());
 
-                System.out.println("Login correcto");
-                Sesion.setUserId(Username);
-
-                Parent root = FXMLLoader.load(RegisterController.class.getResource("MainPanelView.fxml"));
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.close();
-                Scene scene = new Scene(root);
-
-                stage.setScene(scene);
-                stage.setTitle(Main.name());
-
-                stage.show();
+                        stage.show();
+                    } else {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error, "Inicio de sesión fallido");
+                    }
                 }
-                else AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
-                    "Inicio de sesion fallido");
-
+            }
+        }catch (Exception e){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error, "Inicio de sesión fallido");
         }
+    }
+
 
     @FXML
     public void showRegisterStage() throws IOException {

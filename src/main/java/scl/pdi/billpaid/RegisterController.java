@@ -1,5 +1,5 @@
 package scl.pdi.billpaid;
-import org.mariadb.jdbc.Driver;
+
 import java.sql.*;
 
 import javafx.fxml.FXML;
@@ -37,66 +37,68 @@ public class RegisterController{
     private Button registerButton;
 
     @FXML
-    void register() throws IOException, SQLException {
-
-
+    void register() {
         window = registerButton.getScene().getWindow();
 
         if (this.isValidated()) {
-
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
-                        "admin", "Proyecto48"
-                );
-
+            try (Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://proyecto2.cxksbyurm5sm.eu-north-1.rds.amazonaws.com/proyecto3",
+                    "admin", "Proyecto48"
+            )) {
                 String consulta = "INSERT INTO Usuario (username, nombre, email, passw) VALUES (?, ?, ?, ?)";
-                PreparedStatement statement = connection.prepareStatement(consulta);
-                statement.setString(1, username.getText());
-                statement.setString(2, name.getText());
-                statement.setString(3, email.getText());
-                statement.setString(4, password.getText());
+                try (PreparedStatement statement = connection.prepareStatement(consulta)) {
+                    statement.setString(1, username.getText());
+                    statement.setString(2, name.getText());
+                    statement.setString(3, email.getText());
+                    statement.setString(4, password.getText());
+
+                    AlertHelper.showAlert(Alert.AlertType.INFORMATION, AlertHelper.Info, "Usuario registrado.");
 
                     clearForm();
                     statement.executeUpdate();
-                    statement.close();
-                    connection.close();
 
-            AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Información",
-                    "Usuario registrado.");
+                }
+            }catch (Exception e){
+                AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error, "Error al hacer conexion");
 
+            }
         }
     }
 
 
-    private boolean isValidated() throws IOException {
+
+
+
+
+    private boolean isValidated() {
 
         window = registerButton.getScene().getWindow();
         if (username.getText().equals("")) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Tienes que rellenar el usuario");
             username.requestFocus();
         } else if (username.getText().length() < 0 || username.getText().length() > 25) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Username text field cannot be less than 5 and greator than 25 characters.");
             username.requestFocus();
         } else if (password.getText().equals("")) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Tienes que rellenar la contraseña");
             password.requestFocus();
         } else if (password.getText().length() < 5 || password.getText().length() > 25) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Password text field cannot be less than 5 and greator than 25 characters.");
             password.requestFocus();
         } else if (confirmPassword.getText().equals("")) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Tienes que rellenar la confirmación de la contraseña");
             confirmPassword.requestFocus();
         } else if (confirmPassword.getText().length() < 5 || password.getText().length() > 25) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Confirm password text field cannot be less than 5 and greator than 25 characters.");
             confirmPassword.requestFocus();
         } else if (!password.getText().equals(confirmPassword.getText())) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error",
+            AlertHelper.showAlert(Alert.AlertType.ERROR, AlertHelper.Error,
                     "Las contraseñas no coinciden");
             password.requestFocus();
         } else {
