@@ -1,6 +1,5 @@
 package scl.pdi.billpaid;
 
-import org.mariadb.jdbc.Driver;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,8 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import scl.pdi.billpaid.holders.GrupoHolder;
-import scl.pdi.billpaid.holders.ListGruposHolder;
 import scl.pdi.billpaid.modelo.Grupo;
 import scl.pdi.billpaid.modelo.Sesion;
 
@@ -22,15 +19,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreacionController extends MainPanelController {
     private Grupo grupo;
     private final String usuario = Sesion.getUserId();
     private ArrayList<Grupo> gruposAlmacenados = new ArrayList<>();
-    //contador
-    private double cantidad = 0.00;
 
     @FXML
     private BorderPane borderPane;
@@ -110,7 +104,7 @@ public class CreacionController extends MainPanelController {
                 String consulta = "DELETE FROM Grupo WHERE nombre = ?";
                 PreparedStatement statement = connection.prepareStatement(consulta) ;
                 statement.setString(1, String.valueOf(list_grupos)) ;
-                ResultSet resultSet = statement.executeQuery();
+                //ResultSet resultSet = statement.executeQuery();
 
                 list_grupos.getItems().remove(idx_eliminar); //Elimina la lista.
 
