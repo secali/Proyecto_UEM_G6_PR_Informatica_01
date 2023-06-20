@@ -47,13 +47,12 @@ public class TransaccionController extends MainPanelController {
     @FXML
     private Button btCrear, btModificar, btPremium;
 
-
+    Connection connection = null;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lbGrupos.setText(Sesion.getLatestIdGroup());
         transaccionesAlmacenadas = new ArrayList<>();
 
-        Connection connection = null;
         try {
             connection = DriverManager.getConnection(
                     URL_BD,
@@ -65,6 +64,7 @@ public class TransaccionController extends MainPanelController {
             statement.setString(1, usuario);
             ResultSet resultSet = statement.executeQuery();
 
+            lbCantidad.setText("0.00");
             while (resultSet.next()) {
                 String id = resultSet.getString(1);
                 String nombre = resultSet.getString(2);
@@ -79,10 +79,20 @@ public class TransaccionController extends MainPanelController {
 
                 listTransacciones.getItems().add(transaccion.toString());
 
-                connection.close();
+                double a = Double.parseDouble(cantidad);
+                double b = Double.parseDouble(lbCantidad.getText());
+                lbCantidad.setText(String.valueOf(a+b));
+
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -95,12 +105,11 @@ public class TransaccionController extends MainPanelController {
             ArrayList<String> deudores = new ArrayList<>();
             deudores.add(tfDeberPor.getText());
 
-            transaccion = new Transaccion(grupo.getNombre(), tfNombreTransaccion.getText(), tfDescripTrans.getText(), dateFechaTransaccion.getValue().toString() ,Double.parseDouble(tfCantidad.getText())
+            transaccion = new Transaccion(Sesion.getLatestIdGroup(), tfNombreTransaccion.getText(), tfDescripTrans.getText(), dateFechaTransaccion.getValue().toString() ,Double.parseDouble(tfCantidad.getText())
                     , pagadores.get(0), deudores.get(0) , usuario, "NOT_YET");
 
             listTransacciones.getItems().add(transaccion.toString());
             transaccionesAlmacenadas.add(transaccion);
-            grupo.setTransaccion(transaccion);
 
             try {
                 Connection connection = DriverManager.getConnection(
@@ -119,42 +128,63 @@ public class TransaccionController extends MainPanelController {
                 statement.setString(7, usuario);
                 ResultSet resultSet = statement.executeQuery();
 
-                connection.close();
+
 
             }catch (SQLException e){
                 throw new RuntimeException(e);
+            }finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
-            cantidad += transaccion.getImporte();
-            lbCantidad.setText(cantidad + " €");
 
             cleanForm();
+
+            double a = transaccion.getImporte();
+            double b = Double.parseDouble(lbCantidad.getText());
+            lbCantidad.setText(String.valueOf(a+b));
         }
     }
 
     @FXML
-    protected void onEliminarTransaccionSUPR(KeyEvent event) throws SQLException {
+    protected void onEliminarTransaccionSUPR(KeyEvent event)  {
 
 
         if (event.getCode() == KeyCode.DELETE) {
             int idxEliminar = listTransacciones.getSelectionModel().getSelectedIndex();
             if (idxEliminar >= 0) {
-                Connection connection = DriverManager.getConnection(
-                        URL_BD, USER_BD, PASSW_BD
-                );
 
-                String consulta = "DELETE FROM Transacciones WHERE nombre = ?";
-                PreparedStatement statement = connection.prepareStatement(consulta);
-                statement.setString(1, String.valueOf(transaccionesAlmacenadas.get(idxEliminar).getNombre()));
-                ResultSet resultSet = statement.executeQuery();
 
-                listTransacciones.getItems().remove(idxEliminar);  //elimina de la lista
+                try {
+                    connection = DriverManager.getConnection(
+                            URL_BD, USER_BD, PASSW_BD
+                    );
 
-                //Actualiza la cantidad mostrada y elimina el objeto almacenado
-                //cantidad -= grupo.getTransacciones().get(idxEliminar).getImporte();
-                lbCantidad.setText(cantidad + " €");
-                transaccionesAlmacenadas.remove(idxEliminar);
-                grupo.removeTransaccion(idxEliminar);
+
+                    String consulta = "DELETE FROM Transacciones WHERE nombre = ?";
+                    PreparedStatement statement = connection.prepareStatement(consulta);
+                    statement.setString(1, String.valueOf(transaccionesAlmacenadas.get(idxEliminar).getNombre()));
+                    ResultSet resultSet = statement.executeQuery();
+
+                    listTransacciones.getItems().remove(idxEliminar);  //elimina de la lista
+
+                    //Actualiza la cantidad mostrada y elimina el objeto almacenado
+                    //cantidad -= grupo.getTransacciones().get(idxEliminar).getImporte();
+                    lbCantidad.setText(String.valueOf(cantidad));
+                    transaccionesAlmacenadas.remove(idxEliminar);
+                    grupo.removeTransaccion(idxEliminar);
+                } catch (SQLException e) {
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
+
         }
 
     }
@@ -182,7 +212,7 @@ public class TransaccionController extends MainPanelController {
 
             listTransacciones.getItems().remove(idx_eliminar);  //elimina de la lista
 
-            lbCantidad.setText(cantidad + " €");
+            lbCantidad.setText(String.valueOf(cantidad));
             transaccionesAlmacenadas.remove(idx_eliminar);
         }
     }

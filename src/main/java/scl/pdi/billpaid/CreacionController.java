@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import scl.pdi.billpaid.modelo.Grupo;
@@ -91,9 +93,8 @@ public class CreacionController extends MainPanelController {
         gruposAlmacenados.add(grupo);
     }
     @FXML
-    protected void onEliminarGrupoClick(KeyEvent accion) throws SQLException {
+    protected void onEliminarGrupoClick() throws SQLException {
 
-        if(accion.getCode() == KeyCode.DELETE) {
             int idx_eliminar = list_grupos.getSelectionModel().getSelectedIndex();
             if(idx_eliminar >=0){
                 Connection connection = DriverManager.getConnection(
@@ -103,30 +104,33 @@ public class CreacionController extends MainPanelController {
 
                 String consulta = "DELETE FROM Grupo WHERE nombre = ?";
                 PreparedStatement statement = connection.prepareStatement(consulta) ;
-                statement.setString(1, String.valueOf(list_grupos)) ;
-                //ResultSet resultSet = statement.executeQuery();
+                statement.setString(1, String.valueOf(gruposAlmacenados.get(idx_eliminar).getNombre())) ;
+                ResultSet resultSet = statement.executeQuery();
 
                 list_grupos.getItems().remove(idx_eliminar); //Elimina la lista.
 
                 gruposAlmacenados.remove(idx_eliminar);
             }
         }
-    }
+
 
 
     @FXML
-    protected void onEntrarTransaccion() throws IOException {
-        Sesion.setLatestIdGroup(grupo.getNombre());
-        Stage stage = (Stage) borderPane.getScene().getWindow();
-        stage.close();
+    protected void onEntrarTransaccion(MouseEvent event) throws IOException {
+        if (event.getClickCount() > 1) {
 
-        Parent root = FXMLLoader.load(getClass().getResource("TransaccionView.fxml"));
+            Sesion.setLatestIdGroup(grupo.getNombre());
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            stage.close();
 
-        Scene scene = new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource("TransaccionView.fxml"));
 
-        stage.setScene(scene);
-        stage.setTitle(Main.name());
+            Scene scene = new Scene(root);
 
-        stage.show();
+            stage.setScene(scene);
+            stage.setTitle(Main.name());
+
+            stage.show();
+        }
     }
 }
